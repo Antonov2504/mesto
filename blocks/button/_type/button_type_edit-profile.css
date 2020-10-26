@@ -1,0 +1,6 @@
+.button_type_edit-profile {
+  width: 24px;
+  height: 24px;
+  background-image: url('./../../../images/icons/pencil.svg');
+  background-size: 10px;
+}
