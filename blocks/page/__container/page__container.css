@@ -1,0 +1,6 @@
+.page__container {
+  min-width: 320px;
+  width: calc(100% - 200px * 2);
+  max-width: 880px;
+  margin: 0 auto;
+}
