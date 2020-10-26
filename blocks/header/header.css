@@ -1,0 +1,8 @@
+.header {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  min-height: 119px;
+  border-bottom: 1px solid #545454;
+  box-sizing: border-box;
+}
