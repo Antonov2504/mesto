@@ -2,7 +2,15 @@
   display: flex;
   justify-content: flex-start;
   align-items: center;
-  min-height: 119px;
+  width: calc(100% + 19px * 2);
+  min-height: 84px;
   border-bottom: 1px solid #545454;
   box-sizing: border-box;
+}
+
+@media screen and (min-width: 600px) {
+  .header {
+    width: initial;
+    min-height: 119px;
+  }
 }
