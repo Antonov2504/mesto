@@ -4,4 +4,10 @@
   background-color: black;
   border-radius: 2px;
   color: white;
+  transition: background-color .3s;
+}
+
+.button_type_submit:hover {
+  opacity: 1;
+  background-color: rgba(0 0 0 / 0.8);
 }
