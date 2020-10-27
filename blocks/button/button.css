@@ -5,7 +5,10 @@
   background-repeat: no-repeat;
   background-size: cover;
   background-color: transparent;
-  border: 1px solid #FFFFFF;
+  border: 1px solid white;
+  font-size: 18px;
+  line-height: 1.22;
+  text-align: center;
   box-sizing: border-box;
   transition: opacity .3s;
 }
