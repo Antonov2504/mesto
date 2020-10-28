@@ -9,9 +9,9 @@
   transition: background-color .3s;
 }
 
+/* Сделаю поведение этой кнопки аналогично остальным. Идея была в том, что при opacity: 0.8 цвет текста кнопки тоже становится прозрачным (не белым #fff, как в UI-KIT) */
 .button_type_submit:hover {
-  opacity: 1;
-  background-color: rgba(0 0 0 / 0.8);
+  opacity: .8;
 }
 
 @media screen and (min-width: 600px) {
