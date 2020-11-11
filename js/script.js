@@ -10,8 +10,8 @@ const formElement = page.querySelector('.popup__form');
 // Эелементы попапа
 const popupEditProfile = document.querySelector('.popup');
 const buttonClosePopupEditProfile = popupEditProfile.querySelector('.button_type_close-popup');
-const popupEditProfileNameInput = popupEditProfile.querySelector('.popup__item_el_name');
-const popupEditProfileJobInput = popupEditProfile.querySelector('.popup__item_el_job');
+const popupEditProfileNameInput = popupEditProfile.querySelector('.popup__item_el_profile-name');
+const popupEditProfileJobInput = popupEditProfile.querySelector('.popup__item_el_profile-job');
 
 // Шаблон карточек
 const initialCards = [
@@ -47,7 +47,6 @@ const initialCards = [
   }
 ];
 const cardTemplate = document.querySelector('#card-template').content;
-console.log(cardContainer);
 
 function closePopupEditProfile() {
   popupEditProfile.classList.remove('popup_opened');
@@ -78,6 +77,3 @@ initialCards.forEach(card => {
   cardElement.querySelector('.card__name').textContent = card.name;
   cardContainer.append(cardElement);
 });
-
-
-// console.dir(cardTemplate.cloneNode(true).querySelector('.card__image'));

@@ -33,14 +33,27 @@
     <footer class="footer">
       <p class="footer__text">&COPY; 2020 Mesto Russia</p>
     </footer>
-    <div class="popup">
+    <!-- Попап редактировать профиль -->
+    <div class="popup popup_type_edit-profile">
       <div class="popup__container">
         <button type="button" class="button button_type_close-popup"></button>
         <form action="#" name="edit-profile" class="popup__form">
           <h2 class="popup__heading">Редактировать профиль</h2>
-          <input type="text" name="profile-name" class="popup__item popup__item_el_name">
-          <input type="text" name="profile-job" class="popup__item popup__item_el_job">
+          <input type="text" name="profile-name" class="popup__item popup__item_el_profile-name">
+          <input type="text" name="profile-job" class="popup__item popup__item_el_profile-job">
           <button type="submit" class="button button_type_submit">Сохранить</button>
+        </form>
+      </div>
+    </div>
+    <!-- Попап добавить карточку -->
+    <div class="popup popup_type_add-card">
+      <div class="popup__container">
+        <button type="button" class="button button_type_close-popup"></button>
+        <form action="#" name="add-card" class="popup__form">
+          <h2 class="popup__heading">Новое место</h2>
+          <input type="text" name="card-name" class="popup__item popup__item_el_card-name" placeholder="Название">
+          <input type="text" name="card-link" class="popup__item popup__item_el_card-link" placeholder="Ссылка на картинку">
+          <button type="submit" class="button button_type_submit">Создать</button>
         </form>
       </div>
     </div>
