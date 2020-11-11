@@ -18,72 +18,15 @@
         <div class="profile__about">
           <img src="./images/profile__avatar.jpg" alt="Жак-Ив Кусто" class="profile__avatar">
           <div class="profile__description">
-            <!-- Судя по программе курса обучения h1 отвечает на вопрос темы и контента ресурса. Не понятно, каким образом, в данном случае имя профиля Жак-Ив Кусто соответствует интересным местам России? -->
             <h1 class="profile__name">Жак-Ив Кусто</h1>
-            <!-- В данном случае button это не элемент, а самостоятельный блок с различными модификаторами _type, в зависимости от типа выполняемых функций -->
             <button type="button" class="button button_type_edit-profile"></button>
             <p class="profile__job">Исследователь океана</p>
           </div>
         </div>
         <button type="button" class="button button_type_add-card"></button>
       </section>
-      <!-- Не будет ли в данном случае section лишней оберткой? -->
       <section class="elements">
         <ul class="cards">
-          <!-- Card 1 -->
-          <li class="card">
-            <img src="./images/Cherepovets.jpg" alt="Камерный театр в городе Череповце." class="card__image">
-            <div class="card__info">
-              <h2 class="card__name">Череповец</h2>
-              <button type="button" class="button button_type_add-like"></button>
-            </div>
-          </li>
-          <!-- End Card 1 -->
-          <!-- Card 2 -->
-          <li class="card">
-            <img src="./images/Sochi.jpg" alt="Ночной город Сочи с высоты птичьего полета. Сочи - жаркие ночи." class="card__image">
-            <div class="card__info">
-              <h2 class="card__name">Сочи</h2>
-              <button type="button" class="button button_type_add-like"></button>
-            </div>
-          </li>
-          <!-- End Card 2 -->
-          <!-- Card 3 -->
-          <li class="card">
-            <img src="./images/Nizhny-Novgorod.jpg" alt="Слияние Оки и Волги. Знаменитая стрелка в городе Нижнем Новгороде. Вид от стен Кремля." class="card__image">
-            <div class="card__info">
-              <h2 class="card__name">Нижний Новгород</h2>
-              <button type="button" class="button button_type_add-like"></button>
-            </div>
-          </li>
-          <!-- End Card 3 -->
-          <!-- Card 4 -->
-          <li class="card">
-            <img src="./images/Moscow.jpg" alt="'Москва-Сити' с высоты птичьего полета. Главный бизнес-центр в Москве." class="card__image">
-            <div class="card__info">
-              <h2 class="card__name">Москва</h2>
-              <button type="button" class="button button_type_add-like"></button>
-            </div>
-          </li>
-          <!-- End Card 4 -->
-          <!-- Card 5 -->
-          <li class="card">
-            <img src="./images/Saint-Petersburg.jpg" alt="Исаакиевский собор в лучах солнца, город Санкт-Петербург. Над золотым куполом пролетает стая птиц." class="card__image">
-            <div class="card__info">
-              <h2 class="card__name">Санкт-Петербург</h2>
-              <button type="button" class="button button_type_add-like"></button>
-            </div>
-          </li>
-          <!-- End Card 5 -->
-          <!-- Card 6 -->
-          <li class="card">
-            <img src="./images/Kazan.jpg" alt="Кул-Шариф - главная соборная джума-мечеть республики Татарстан и города Казани." class="card__image">
-            <div class="card__info">
-              <h2 class="card__name">Казань</h2>
-              <button type="button" class="button button_type_add-like"></button>
-            </div>
-          </li>
-          <!-- End Card 6 -->
         </ul>
       </section>
     </main>
@@ -102,6 +45,15 @@
       </div>
     </div>
   </div>
+  <template id="card-template">
+    <li class="card">
+      <img src="" alt="" class="card__image">
+      <div class="card__info">
+        <h2 class="card__name"></h2>
+        <button type="button" class="button button_type_add-like"></button>
+      </div>
+    </li>
+  </template>
   <script src="./js/script.js"></script>
 </body>
 
