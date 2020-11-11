@@ -3,15 +3,18 @@ const page = document.querySelector('.page');
 const profileName = page.querySelector('.profile__name');
 const profileJob = page.querySelector('.profile__job');
 const buttonEditProfile = page.querySelector('.button_type_edit-profile');
+const buttonAddCard = page.querySelector('.button_type_add-card');
 const cardContainer = page.querySelector('.cards');
 const formElement = page.querySelector('.popup__form');
 
 
 // Эелементы попапа
-const popupEditProfile = document.querySelector('.popup');
-const buttonClosePopupEditProfile = popupEditProfile.querySelector('.button_type_close-popup');
+const popupEditProfile = document.querySelector('.popup_type_edit-profile');
 const popupEditProfileNameInput = popupEditProfile.querySelector('.popup__item_el_profile-name');
 const popupEditProfileJobInput = popupEditProfile.querySelector('.popup__item_el_profile-job');
+const popupAddCard = document.querySelector('.popup_type_add-card');
+const popupAddCardNameInput = popupAddCard.querySelector('.popup__item_el_card-name');
+const popupAddCardLinkInput = popupAddCard.querySelector('.popup__item_el_card-link');
 
 // Шаблон карточек
 const initialCards = [
@@ -48,25 +51,35 @@ const initialCards = [
 ];
 const cardTemplate = document.querySelector('#card-template').content;
 
-function closePopupEditProfile() {
-  popupEditProfile.classList.remove('popup_opened');
+function openPopup(popup) {
+  popup.classList.add('popup_opened');
+  const buttonClosePopup = popup.querySelector('.button_type_close-popup');
+  buttonClosePopup.addEventListener('click', () => closePopup(popup));
+}
+
+function closePopup(popup) {
+  popup.classList.remove('popup_opened');
 }
 
 function formSubmit(event) {
   event.preventDefault();
   profileName.textContent = popupEditProfileNameInput.value;
   profileJob.textContent = popupEditProfileJobInput.value;
-  closePopupEditProfile();
+  closePopup(popupEditProfile);
 }
 
 function editProfile() {
-  popupEditProfile.classList.add('popup_opened');
+  openPopup(popupEditProfile);
   popupEditProfileNameInput.value = profileName.textContent;
   popupEditProfileJobInput.value = profileJob.textContent;
 }
 
+function addCard() {
+  openPopup(popupAddCard);
+}
+
 buttonEditProfile.addEventListener('click', editProfile);
-buttonClosePopupEditProfile.addEventListener('click', closePopupEditProfile);
+buttonAddCard.addEventListener('click', addCard);
 formElement.addEventListener('submit', formSubmit);
 
 // Создание карточек по умолчанию
