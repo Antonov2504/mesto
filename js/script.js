@@ -5,16 +5,18 @@ const profileJob = page.querySelector('.profile__job');
 const buttonEditProfile = page.querySelector('.button_type_edit-profile');
 const buttonAddCard = page.querySelector('.button_type_add-card');
 const cardContainer = page.querySelector('.cards');
-const formElement = page.querySelector('.popup__form');
 
-
-// Эелементы попапа
+// Эелементы попапа редактирования профиля
 const popupEditProfile = document.querySelector('.popup_type_edit-profile');
 const popupEditProfileNameInput = popupEditProfile.querySelector('.popup__item_el_profile-name');
 const popupEditProfileJobInput = popupEditProfile.querySelector('.popup__item_el_profile-job');
+const popupEditProfileForm = popupEditProfile.querySelector('.popup__form');
+
+// Эелементы попапа добавления карточки
 const popupAddCard = document.querySelector('.popup_type_add-card');
 const popupAddCardNameInput = popupAddCard.querySelector('.popup__item_el_card-name');
 const popupAddCardLinkInput = popupAddCard.querySelector('.popup__item_el_card-link');
+const popupAddCardForm = popupAddCard.querySelector('.popup__form');
 
 // Шаблон карточек
 const initialCards = [
@@ -61,26 +63,26 @@ function closePopup(popup) {
   popup.classList.remove('popup_opened');
 }
 
-function formSubmit(event) {
+function editProfileHandler() {
+  openPopup(popupEditProfile);
+  popupEditProfileNameInput.value = profileName.textContent;
+  popupEditProfileJobInput.value = profileJob.textContent;
+}
+
+function addCardHandler() {
+  openPopup(popupAddCard);
+}
+
+function popupEditProfileFormHandler(event) {
   event.preventDefault();
   profileName.textContent = popupEditProfileNameInput.value;
   profileJob.textContent = popupEditProfileJobInput.value;
   closePopup(popupEditProfile);
 }
 
-function editProfile() {
-  openPopup(popupEditProfile);
-  popupEditProfileNameInput.value = profileName.textContent;
-  popupEditProfileJobInput.value = profileJob.textContent;
-}
-
-function addCard() {
-  openPopup(popupAddCard);
-}
-
-buttonEditProfile.addEventListener('click', editProfile);
-buttonAddCard.addEventListener('click', addCard);
-formElement.addEventListener('submit', formSubmit);
+buttonEditProfile.addEventListener('click', editProfileHandler);
+buttonAddCard.addEventListener('click', addCardHandler);
+popupEditProfileForm.addEventListener('submit', popupEditProfileFormHandler);
 
 // Создание карточек по умолчанию
 initialCards.forEach(card => {
