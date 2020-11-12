@@ -57,6 +57,7 @@ const initialCards = [
   }
 ];
 const cardTemplate = document.querySelector('#card-template').content;
+let popupOpacity = 0;
 
 function isValidUrl(url) {
   const res = url.match(/(http(s)?:\/\/.)?(www\.)?[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)/g);
@@ -83,19 +84,26 @@ function imageHandler(event) {
   popupShowCardImage.alt = cardImage.alt;
   popupShowCardName.textContent = cardName.textContent;
   openPopup(popupShowCard);
-  console.log(event.target);
-  console.log(cardName.textContent);
-  console.log(cardImage.src);
 }
 
 function openPopup(popup) {
-  popup.classList.add('popup_opened');
   const buttonClosePopup = popup.querySelector('.button_type_close-popup');
+  popup.classList.add('popup_opened');
+  popup.offsetHeight;
+  popupOpacity = 1;
+  popup.style.opacity = popupOpacity;
   buttonClosePopup.addEventListener('click', () => closePopup(popup));
+  page.addEventListener('transitionend', () => {
+    if (!popupOpacity) {
+      popup.classList.remove('popup_opened');
+    }
+  })
 }
 
 function closePopup(popup) {
-  popup.classList.remove('popup_opened');
+  popupOpacity = 0;
+  popup.style.opacity = popupOpacity;
+  popup.offsetHeight;
 }
 
 function editProfileHandler() {
