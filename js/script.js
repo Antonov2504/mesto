@@ -26,24 +26,9 @@ const popupShowCardName = popupShowCard.querySelector('.popup__caption');
 // Шаблон карточек
 const initialCards = [
   {
-    name: 'Казань',
-    alt: 'Кул-Шариф - главная соборная джума-мечеть республики Татарстан и города Казани.',
-    link: './images/Kazan.jpg'
-  },
-  {
-    name: 'Санкт-Петербург',
-    alt: 'Исаакиевский собор в лучах солнца, город Санкт-Петербург. Над золотым куполом пролетает стая птиц.',
-    link: './images/Saint-Petersburg.jpg'
-  },
-  {
-    name: 'Москва',
-    alt: "'Москва-Сити' с высоты птичьего полета. Главный бизнес-центр в Москве.",
-    link: './images/Moscow.jpg'
-  },
-  {
-    name: 'Нижний Новгород',
-    alt: 'Слияние Оки и Волги. Знаменитая стрелка в городе Нижнем Новгороде. Вид от стен Кремля.',
-    link: './images/Nizhny-Novgorod.jpg'
+    name: 'Череповец',
+    alt: 'Камерный театр в городе Череповце.',
+    link: './images/Cherepovets.jpg'
   },
   {
     name: 'Сочи',
@@ -51,9 +36,24 @@ const initialCards = [
     link: './images/Sochi.jpg'
   },
   {
-    name: 'Череповец',
-    alt: 'Камерный театр в городе Череповце.',
-    link: './images/Cherepovets.jpg'
+    name: 'Нижний Новгород',
+    alt: 'Слияние Оки и Волги. Знаменитая стрелка в городе Нижнем Новгороде. Вид от стен Кремля.',
+    link: './images/Nizhny-Novgorod.jpg'
+  },
+  {
+    name: 'Москва',
+    alt: "'Москва-Сити' с высоты птичьего полета. Главный бизнес-центр в Москве.",
+    link: './images/Moscow.jpg'
+  },
+  {
+    name: 'Санкт-Петербург',
+    alt: 'Исаакиевский собор в лучах солнца, город Санкт-Петербург. Над золотым куполом пролетает стая птиц.',
+    link: './images/Saint-Petersburg.jpg'
+  },
+  {
+    name: 'Казань',
+    alt: 'Кул-Шариф - главная соборная джума-мечеть республики Татарстан и города Казани.',
+    link: './images/Kazan.jpg'
   }
 ];
 const cardTemplate = document.querySelector('#card-template').content;
@@ -150,4 +150,4 @@ popupEditProfileForm.addEventListener('submit', popupEditProfileFormHandler);
 popupAddCardForm.addEventListener('submit', popupAddCardFormHandler);
 
 // Создание карточек по умолчанию
-initialCards.forEach(card => addCard(card.name, card.link, card.alt));
+initialCards.forEach(card => addCard(card.name, card.link, card.alt, false));
