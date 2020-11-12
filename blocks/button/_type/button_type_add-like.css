@@ -2,7 +2,7 @@
   width: 21px;
   height: 18px;
   padding: 0;
-  background-image: url(./../../../images/icons/heart.svg);
+  background-image: url('./../../../images/icons/heart.svg');
   background-size: contain;
   border: 0;
 }

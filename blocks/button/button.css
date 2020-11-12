@@ -11,6 +11,7 @@
   text-align: center;
   box-sizing: border-box;
   transition: opacity .3s;
+  outline: none;
 }
 
 .button:hover {
