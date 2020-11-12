@@ -119,7 +119,7 @@ function addCard(cardName, cardLink, cardAlt = cardName, isPrepend = true) {
   const cardElementTrash = cardElement.querySelector('.button_type_remove-card');
   const cardElementLike = cardElement.querySelector('.button_type_add-like');
 
-  isValidUrl(cardLink) ? cardElementImage.src = cardLink : cardElementImage.src = 'https://www.russiadiscovery.ru/upload/files/files/Samie-krasivie-mesta-Rossii.jpg';
+  if (isValidUrl(cardLink)) cardElementImage.src = cardLink;
   cardElementImage.alt = cardAlt;
   cardName ? cardElementName.textContent = cardName : cardElementName.textContent = 'Лучшее место в мире';
   isPrepend ? cardContainer.prepend(cardElement) : cardContainer.append(cardElement);
