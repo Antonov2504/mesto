@@ -65,6 +65,10 @@ function likeHandler(event) {
   event.target.classList.toggle('button_type_add-like-active');
 }
 
+function removeHandler(event) {
+  event.target.closest('.card').remove();
+}
+
 function openPopup(popup) {
   popup.classList.add('popup_opened');
   const buttonClosePopup = popup.querySelector('.button_type_close-popup');
@@ -85,6 +89,7 @@ function addCard(cardName, cardLink, cardAlt = cardName, isPrepend = true) {
   const cardElement = cardTemplate.cloneNode(true);
   const cardElementImage = cardElement.querySelector('.card__image');
   const cardElementName = cardElement.querySelector('.card__name');
+  const cardElementTrash = cardElement.querySelector('.button_type_remove-card');
   const cardElementLike = cardElement.querySelector('.button_type_add-like');
 
   isValidUrl(cardLink) ? cardElementImage.src = cardLink : cardElementImage.src = 'https://www.russiadiscovery.ru/upload/files/files/Samie-krasivie-mesta-Rossii.jpg';
@@ -92,6 +97,7 @@ function addCard(cardName, cardLink, cardAlt = cardName, isPrepend = true) {
   cardName ? cardElementName.textContent = cardName : cardElementName.textContent = 'Лучшее место в мире';
   isPrepend ? cardContainer.prepend(cardElement) : cardContainer.append(cardElement);
 
+  cardElementTrash.addEventListener('click', removeHandler);
   cardElementLike.addEventListener('click', likeHandler);
 }
 
