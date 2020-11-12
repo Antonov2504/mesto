@@ -21,24 +21,9 @@ const popupAddCardForm = popupAddCard.querySelector('.popup__form');
 // Шаблон карточек
 const initialCards = [
   {
-    name: 'Череповец',
-    alt: 'Камерный театр в городе Череповце.',
-    link: './images/Cherepovets.jpg'
-  },
-  {
-    name: 'Сочи',
-    alt: 'Ночной город Сочи с высоты птичьего полета. Сочи - жаркие ночи.',
-    link: './images/Sochi.jpg'
-  },
-  {
-    name: 'Нижний Новгород',
-    alt: 'Слияние Оки и Волги. Знаменитая стрелка в городе Нижнем Новгороде. Вид от стен Кремля.',
-    link: './images/Nizhny-Novgorod.jpg'
-  },
-  {
-    name: 'Москва',
-    alt: "'Москва-Сити' с высоты птичьего полета. Главный бизнес-центр в Москве.",
-    link: './images/Moscow.jpg'
+    name: 'Казань',
+    alt: 'Кул-Шариф - главная соборная джума-мечеть республики Татарстан и города Казани.',
+    link: './images/Kazan.jpg'
   },
   {
     name: 'Санкт-Петербург',
@@ -46,12 +31,35 @@ const initialCards = [
     link: './images/Saint-Petersburg.jpg'
   },
   {
-    name: 'Казань',
-    alt: 'Кул-Шариф - главная соборная джума-мечеть республики Татарстан и города Казани.',
-    link: './images/Kazan.jpg'
+    name: 'Москва',
+    alt: "'Москва-Сити' с высоты птичьего полета. Главный бизнес-центр в Москве.",
+    link: './images/Moscow.jpg'
+  },
+  {
+    name: 'Нижний Новгород',
+    alt: 'Слияние Оки и Волги. Знаменитая стрелка в городе Нижнем Новгороде. Вид от стен Кремля.',
+    link: './images/Nizhny-Novgorod.jpg'
+  },
+  {
+    name: 'Сочи',
+    alt: 'Ночной город Сочи с высоты птичьего полета. Сочи - жаркие ночи.',
+    link: './images/Sochi.jpg'
+  },
+  {
+    name: 'Череповец',
+    alt: 'Камерный театр в городе Череповце.',
+    link: './images/Cherepovets.jpg'
   }
 ];
 const cardTemplate = document.querySelector('#card-template').content;
+
+function isValidUrl(url) {
+  const res = url.match(/(http(s)?:\/\/.)?(www\.)?[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)/g);
+  if (res === null)
+    return false;
+  else
+    return true;
+}
 
 function openPopup(popup) {
   popup.classList.add('popup_opened');
@@ -69,8 +77,15 @@ function editProfileHandler() {
   popupEditProfileJobInput.value = profileJob.textContent;
 }
 
-function addCardHandler() {
-  openPopup(popupAddCard);
+function addCard(cardName, cardLink, cardAlt = cardName, isPrepend = true) {
+  const cardElement = cardTemplate.cloneNode(true);
+  const cardElementImage = cardElement.querySelector('.card__image');
+  const cardElementName = cardElement.querySelector('.card__name');
+
+  isValidUrl(cardLink) ? cardElementImage.src = cardLink : cardElementImage.src = 'https://www.russiadiscovery.ru/upload/files/files/Samie-krasivie-mesta-Rossii.jpg';
+  cardElementImage.alt = cardAlt;
+  cardName ? cardElementName.textContent = cardName : cardElementName.textContent = 'Лучшее место в мире';
+  isPrepend ? cardContainer.prepend(cardElement) : cardContainer.append(cardElement);
 }
 
 function popupEditProfileFormHandler(event) {
@@ -80,15 +95,18 @@ function popupEditProfileFormHandler(event) {
   closePopup(popupEditProfile);
 }
 
+function popupAddCardFormHandler(event) {
+  event.preventDefault();
+  addCard(popupAddCardNameInput.value, popupAddCardLinkInput.value);
+  closePopup(popupAddCard);
+  popupAddCardNameInput.value = '';
+  popupAddCardLinkInput.value = '';
+}
+
 buttonEditProfile.addEventListener('click', editProfileHandler);
-buttonAddCard.addEventListener('click', addCardHandler);
+buttonAddCard.addEventListener('click', () => openPopup(popupAddCard));
 popupEditProfileForm.addEventListener('submit', popupEditProfileFormHandler);
+popupAddCardForm.addEventListener('submit', popupAddCardFormHandler);
 
 // Создание карточек по умолчанию
-initialCards.forEach(card => {
-  const cardElement = cardTemplate.cloneNode(true);
-  cardElement.querySelector('.card__image').src = card.link;
-  cardElement.querySelector('.card__image').alt = card.alt;
-  cardElement.querySelector('.card__name').textContent = card.name;
-  cardContainer.append(cardElement);
-});
+initialCards.forEach(card => addCard(card.name, card.link, card.alt));
