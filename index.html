@@ -26,8 +26,7 @@
         <button type="button" class="button button_type_add-card"></button>
       </section>
       <section class="elements">
-        <ul class="cards">
-        </ul>
+        <ul class="cards"></ul>
       </section>
     </main>
     <footer class="footer">
@@ -47,14 +46,24 @@
     </div>
     <!-- Попап добавить карточку -->
     <div class="popup popup_type_add-card">
-      <div class="popup__container">
+      <div class="popup__container popup__container_size_middle">
         <button type="button" class="button button_type_close-popup"></button>
         <form action="#" name="add-card" class="popup__form">
-          <h2 class="popup__heading">Новое место</h2>
-          <input type="text" name="card-name" class="popup__item popup__item_el_card-name" placeholder="Название" autocomplete="off">
-          <input type="text" name="card-link" class="popup__item popup__item_el_card-link" placeholder="Ссылка на картинку" autocomplete="off">
+          <h2 class="popup__heading popup__heading_type_add-card">Новое место</h2>
+          <input type="text" name="card-name" class="popup__item popup__item_size_small popup__item_el_card-name" placeholder="Название" autocomplete="off">
+          <input type="text" name="card-link" class="popup__item popup__item_size_small popup__item_el_card-link" placeholder="Ссылка на картинку" autocomplete="off">
           <button type="submit" class="button button_type_submit">Создать</button>
         </form>
+      </div>
+    </div>
+    <!-- Попап картинка -->
+    <div class="popup popup_type_show-card">
+      <div class="popup__container popup__container_size_large">
+        <button type="button" class="button button_type_close-popup"></button>
+        <figure class="popup__figure">
+          <img src="./images/Cherepovets.jpg" alt="Череповец" class="popup__image">
+          <figcaption class="popup__caption">Череповец</figcaption>
+        </figure>
       </div>
     </div>
   </div>

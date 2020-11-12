@@ -18,6 +18,11 @@ const popupAddCardNameInput = popupAddCard.querySelector('.popup__item_el_card-n
 const popupAddCardLinkInput = popupAddCard.querySelector('.popup__item_el_card-link');
 const popupAddCardForm = popupAddCard.querySelector('.popup__form');
 
+// Элементы попапа открытия карточки
+const popupShowCard = document.querySelector('.popup_type_show-card');
+const popupShowCardImage = popupShowCard.querySelector('.popup__image');
+const popupShowCardName = popupShowCard.querySelector('.popup__caption');
+
 // Шаблон карточек
 const initialCards = [
   {
@@ -69,6 +74,20 @@ function removeHandler(event) {
   event.target.closest('.card').remove();
 }
 
+function imageHandler(event) {
+  const card = event.target.closest('.card');
+  const cardName = card.querySelector('.card__name');
+  const cardImage = card.querySelector('.card__image');
+
+  popupShowCardImage.src = cardImage.src;
+  popupShowCardImage.alt = cardImage.alt;
+  popupShowCardName.textContent = cardName.textContent;
+  openPopup(popupShowCard);
+  console.log(event.target);
+  console.log(cardName.textContent);
+  console.log(cardImage.src);
+}
+
 function openPopup(popup) {
   popup.classList.add('popup_opened');
   const buttonClosePopup = popup.querySelector('.button_type_close-popup');
@@ -98,6 +117,7 @@ function addCard(cardName, cardLink, cardAlt = cardName, isPrepend = true) {
   isPrepend ? cardContainer.prepend(cardElement) : cardContainer.append(cardElement);
 
   cardElementTrash.addEventListener('click', removeHandler);
+  cardElementImage.addEventListener('click', imageHandler);
   cardElementLike.addEventListener('click', likeHandler);
 }
 

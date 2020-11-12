@@ -1,10 +1,10 @@
 .button_type_close-popup {
-  width: 35px;
-  height: 35px;
+  width: 40px;
+  height: 40px;
   background-image: url('./../../../images/icons/close.svg');
   background-size: cover;
   border: 0;
-  transform: translate(0, -135%);
+  transform: translate(82%, -83%);
   position: absolute;
   top: 0;
   right: 0;
