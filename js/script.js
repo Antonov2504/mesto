@@ -57,15 +57,6 @@ const initialCards = [
   }
 ];
 const cardTemplate = document.querySelector('#card-template').content;
-let popupOpacity = 0;
-
-function isValidUrl(url) {
-  const res = url.match(/(http(s)?:\/\/.)?(www\.)?[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)/g);
-  if (res === null)
-    return false;
-  else
-    return true;
-}
 
 function likeHandler(event) {
   event.target.classList.toggle('button_type_add-like-active');
@@ -86,24 +77,15 @@ function imageHandler(event) {
   openPopup(popupShowCard);
 }
 
+// Функция openPopup() выполняет только одну задачу - открывает popup. Данная функция не предназначена для заполнения полей формы.
 function openPopup(popup) {
   const buttonClosePopup = popup.querySelector('.button_type_close-popup');
   popup.classList.add('popup_opened');
-  popup.offsetHeight;
-  popupOpacity = 1;
-  popup.style.opacity = popupOpacity;
   buttonClosePopup.addEventListener('click', () => closePopup(popup));
-  page.addEventListener('transitionend', () => {
-    if (!popupOpacity) {
-      popup.classList.remove('popup_opened');
-    }
-  })
 }
 
 function closePopup(popup) {
-  popupOpacity = 0;
-  popup.style.opacity = popupOpacity;
-  popup.offsetHeight;
+  popup.classList.remove('popup_opened');
 }
 
 function editProfileHandler() {
@@ -112,21 +94,25 @@ function editProfileHandler() {
   popupEditProfileJobInput.value = profileJob.textContent;
 }
 
-function addCard(cardName, cardLink, cardAlt = cardName, isPrepend = true) {
+function createCard(cardName, cardLink, cardAlt = cardName) {
   const cardElement = cardTemplate.cloneNode(true);
   const cardElementImage = cardElement.querySelector('.card__image');
   const cardElementName = cardElement.querySelector('.card__name');
   const cardElementTrash = cardElement.querySelector('.button_type_remove-card');
   const cardElementLike = cardElement.querySelector('.button_type_add-like');
 
-  if (isValidUrl(cardLink)) cardElementImage.src = cardLink;
+  cardElementImage.src = cardLink;
   cardElementImage.alt = cardAlt;
   cardName ? cardElementName.textContent = cardName : cardElementName.textContent = 'Лучшее место в мире';
-  isPrepend ? cardContainer.prepend(cardElement) : cardContainer.append(cardElement);
 
   cardElementTrash.addEventListener('click', removeHandler);
   cardElementImage.addEventListener('click', imageHandler);
   cardElementLike.addEventListener('click', likeHandler);
+  return cardElement;
+}
+
+function addCard(cardContainer, card, isPrepend = true) {
+  isPrepend ? cardContainer.prepend(card) : cardContainer.append(card);
 }
 
 function popupEditProfileFormHandler(event) {
@@ -138,10 +124,9 @@ function popupEditProfileFormHandler(event) {
 
 function popupAddCardFormHandler(event) {
   event.preventDefault();
-  addCard(popupAddCardNameInput.value, popupAddCardLinkInput.value);
+  addCard(cardContainer, createCard(popupAddCardNameInput.value, popupAddCardLinkInput.value));
   closePopup(popupAddCard);
-  popupAddCardNameInput.value = '';
-  popupAddCardLinkInput.value = '';
+  event.target.reset();
 }
 
 buttonEditProfile.addEventListener('click', editProfileHandler);
@@ -150,4 +135,4 @@ popupEditProfileForm.addEventListener('submit', popupEditProfileFormHandler);
 popupAddCardForm.addEventListener('submit', popupAddCardFormHandler);
 
 // Создание карточек по умолчанию
-initialCards.forEach(card => addCard(card.name, card.link, card.alt, false));
+initialCards.forEach(card => addCard(cardContainer, createCard(card.name, card.link, card.alt), false));
