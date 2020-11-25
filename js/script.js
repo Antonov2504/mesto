@@ -8,15 +8,15 @@ const cardContainer = page.querySelector('.cards');
 
 // Эелементы попапа редактирования профиля
 const popupEditProfile = document.querySelector('.popup_type_edit-profile');
-const popupEditProfileNameInput = popupEditProfile.querySelector('.popup__item_el_profile-name');
-const popupEditProfileJobInput = popupEditProfile.querySelector('.popup__item_el_profile-job');
-const popupEditProfileForm = popupEditProfile.querySelector('.popup__form');
+const popupEditProfileNameInput = popupEditProfile.querySelector('.form__input_el_profile-name');
+const popupEditProfileJobInput = popupEditProfile.querySelector('.form__input_el_profile-job');
+const popupEditProfileForm = popupEditProfile.querySelector('.form');
 
 // Эелементы попапа добавления карточки
 const popupAddCard = document.querySelector('.popup_type_add-card');
-const popupAddCardNameInput = popupAddCard.querySelector('.popup__item_el_card-name');
-const popupAddCardLinkInput = popupAddCard.querySelector('.popup__item_el_card-link');
-const popupAddCardForm = popupAddCard.querySelector('.popup__form');
+const popupAddCardNameInput = popupAddCard.querySelector('.form__input_el_card-name');
+const popupAddCardLinkInput = popupAddCard.querySelector('.form__input_el_card-link');
+const popupAddCardForm = popupAddCard.querySelector('.form');
 
 // Элементы попапа открытия карточки
 const popupShowCard = document.querySelector('.popup_type_show-card');

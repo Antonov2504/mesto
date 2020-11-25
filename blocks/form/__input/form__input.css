@@ -1,7 +1,7 @@
-.popup__item {
+.form__input {
   width: 100%;
   height: 32px;
-  margin: 0 0 23px;
+  margin: 0 0 5px;
   background-color: transparent;
   border: 0;
   border-bottom: 1px solid rgba(0 0 0 / .2);
@@ -10,17 +10,13 @@
   box-sizing: border-box;
 }
 
-.popup__item:last-of-type {
-  margin: 0 0 49px;
-}
-
-.popup__item::placeholder {
+.form__input::placeholder {
   color: #c4c4c4;
   font-family: inherit;
 }
 
 @media screen and (min-width: 600px) {
-  .popup__item {
+  .form__input {
     height: 34px;
   }
 }

@@ -1,0 +1,9 @@
+.button_disabled {
+  background-color: transparent;
+  color: rgba(0 0 0 / .2);
+  cursor: default;
+}
+
+.button_disabled:hover {
+  cursor: default;
+}
