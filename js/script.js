@@ -1,4 +1,4 @@
-// Эелементы страницы
+// Элементы страницы
 const page = document.querySelector('.page');
 const profileName = page.querySelector('.profile__name');
 const profileJob = page.querySelector('.profile__job');
@@ -6,13 +6,13 @@ const buttonEditProfile = page.querySelector('.button_type_edit-profile');
 const buttonAddCard = page.querySelector('.button_type_add-card');
 const cardContainer = page.querySelector('.cards');
 
-// Эелементы попапа редактирования профиля
+// Элементы попапа редактирования профиля
 const popupEditProfile = document.querySelector('.popup_type_edit-profile');
 const popupEditProfileNameInput = popupEditProfile.querySelector('.form__input_el_profile-name');
 const popupEditProfileJobInput = popupEditProfile.querySelector('.form__input_el_profile-job');
 const popupEditProfileForm = popupEditProfile.querySelector('.form');
 
-// Эелементы попапа добавления карточки
+// Элементы попапа добавления карточки
 const popupAddCard = document.querySelector('.popup_type_add-card');
 const popupAddCardNameInput = popupAddCard.querySelector('.form__input_el_card-name');
 const popupAddCardLinkInput = popupAddCard.querySelector('.form__input_el_card-link');
@@ -82,6 +82,10 @@ function openPopup(popup) {
   const buttonClosePopup = popup.querySelector('.button_type_close-popup');
   popup.classList.add('popup_opened');
   buttonClosePopup.addEventListener('click', () => closePopup(popup));
+  popup.addEventListener('click', (evt) => {
+    const eventTarget = evt.target;
+    if (eventTarget, eventTarget.classList.contains('popup')) closePopup(popup);
+  });
 }
 
 function closePopup(popup) {
