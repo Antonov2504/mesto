@@ -77,18 +77,25 @@ function imageHandler(event) {
   openPopup(popupShowCard);
 }
 
+function popupClickHandler(event) {
+  const popup = page.querySelector('.popup_opened');
+  event.stopPropagation();
+  if (event.target.classList.contains('popup') || event.target.classList.contains('button_type_close-popup')) closePopup(popup);
+}
+
+function keydownHandler(event) {
+  const popupOpened = page.querySelector('.popup_opened');
+  if (popupOpened && event.key === "Escape") closePopup(popupOpened);
+}
+
 // Функция openPopup() выполняет только одну задачу - открывает popup. Данная функция не предназначена для заполнения полей формы.
 function openPopup(popup) {
-  const buttonClosePopup = popup.querySelector('.button_type_close-popup');
   popup.classList.add('popup_opened');
-  buttonClosePopup.addEventListener('click', () => closePopup(popup));
-  popup.addEventListener('click', (evt) => {
-    const eventTarget = evt.target;
-    if (eventTarget, eventTarget.classList.contains('popup')) closePopup(popup);
-  });
+  popup.addEventListener('click', popupClickHandler);
 }
 
 function closePopup(popup) {
+  popup.removeEventListener('click', popupClickHandler);
   popup.classList.remove('popup_opened');
 }
 
@@ -137,6 +144,7 @@ buttonEditProfile.addEventListener('click', editProfileHandler);
 buttonAddCard.addEventListener('click', () => openPopup(popupAddCard));
 popupEditProfileForm.addEventListener('submit', popupEditProfileFormHandler);
 popupAddCardForm.addEventListener('submit', popupAddCardFormHandler);
+window.addEventListener('keydown', keydownHandler);
 
 // Создание карточек по умолчанию
 initialCards.forEach(card => addCard(cardContainer, createCard(card.name, card.link, card.alt), false));
