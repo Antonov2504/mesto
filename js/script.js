@@ -92,10 +92,12 @@ function keydownHandler(event) {
 function openPopup(popup) {
   popup.classList.add('popup_opened');
   popup.addEventListener('click', popupClickHandler);
+  window.addEventListener('keydown', keydownHandler);
 }
 
 function closePopup(popup) {
   popup.removeEventListener('click', popupClickHandler);
+  window.removeEventListener('keydown', keydownHandler);
   popup.classList.remove('popup_opened');
 }
 
@@ -144,7 +146,6 @@ buttonEditProfile.addEventListener('click', editProfileHandler);
 buttonAddCard.addEventListener('click', () => openPopup(popupAddCard));
 popupEditProfileForm.addEventListener('submit', popupEditProfileFormHandler);
 popupAddCardForm.addEventListener('submit', popupAddCardFormHandler);
-window.addEventListener('keydown', keydownHandler);
 
 // Создание карточек по умолчанию
 initialCards.forEach(card => addCard(cardContainer, createCard(card.name, card.link, card.alt), false));
