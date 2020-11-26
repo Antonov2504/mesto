@@ -102,8 +102,7 @@ function setButtonState(buttonElement, buttonState) {
   }
 }
 
-function resetPopupForm(popup) {
-  const popupForm = popup.querySelector(objSettings.formSelector);
+function resetPopupForm(popupForm) {
   const inputList = Array.from(popupForm.querySelectorAll(`.${objSettings.inputErrorClass}`));
   const errorList = Array.from(popupForm.querySelectorAll(`.${objSettings.errorClass}`));
   // console.log(errorList, objSettings.errorClass);
@@ -122,9 +121,10 @@ function openPopup(popup) {
 }
 
 function closePopup(popup) {
+  const popupForm = popup.querySelector(objSettings.formSelector);
   popup.removeEventListener('mousedown', popupClickHandler);
   window.removeEventListener('keydown', keydownHandler);
-  resetPopupForm(popup);
+  if (popupForm) resetPopupForm(popupForm);
   popup.classList.remove('popup_opened');
 }
 
