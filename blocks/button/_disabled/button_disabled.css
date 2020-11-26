@@ -6,4 +6,5 @@
 
 .button_disabled:hover {
   cursor: default;
+  opacity: 1;
 }

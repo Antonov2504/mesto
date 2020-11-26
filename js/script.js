@@ -11,6 +11,7 @@ const popupEditProfile = document.querySelector('.popup_type_edit-profile');
 const popupEditProfileNameInput = popupEditProfile.querySelector('.form__input_el_profile-name');
 const popupEditProfileJobInput = popupEditProfile.querySelector('.form__input_el_profile-job');
 const popupEditProfileForm = popupEditProfile.querySelector('.form');
+const popupEditProfileFormSubmitButton = popupEditProfileForm.querySelector('.button_type_submit');
 
 // Элементы попапа добавления карточки
 const popupAddCard = document.querySelector('.popup_type_add-card');
@@ -22,6 +23,9 @@ const popupAddCardForm = popupAddCard.querySelector('.form');
 const popupShowCard = document.querySelector('.popup_type_show-card');
 const popupShowCardImage = popupShowCard.querySelector('.popup__image');
 const popupShowCardName = popupShowCard.querySelector('.popup__caption');
+
+// Открытый на странице popup
+let popupActive = document.querySelector('.popup_opened');
 
 // Шаблон карточек
 const initialCards = [
@@ -88,16 +92,39 @@ function keydownHandler(event) {
   if (popupOpened && event.key === "Escape") closePopup(popupOpened);
 }
 
+function setButtonState(buttonElement, buttonState) {
+  if (buttonState) {
+    buttonElement.removeAttribute('disabled');
+    buttonElement.classList.remove('button_disabled');
+  } else {
+    buttonElement.setAttribute('disabled', true);
+    buttonElement.classList.add('button_disabled');
+  }
+}
+
+function resetPopupForm(popup) {
+  const popupForm = popup.querySelector(objSettings.formSelector);
+  const inputList = Array.from(popupForm.querySelectorAll(`.${objSettings.inputErrorClass}`));
+  const errorList = Array.from(popupForm.querySelectorAll(`.${objSettings.errorClass}`));
+  // console.log(errorList, objSettings.errorClass);
+  // console.log(popupForm.querySelector(`.${objSettings.errorClass}`));
+  inputList.forEach(inputElement => inputElement.classList.remove(objSettings.inputErrorClass));
+  errorList.forEach(error => error.classList.remove(objSettings.errorClass));
+  popupForm.reset();
+}
+
 // Функция openPopup() выполняет только одну задачу - открывает popup. Данная функция не предназначена для заполнения полей формы.
 function openPopup(popup) {
   popup.classList.add('popup_opened');
-  popup.addEventListener('click', popupClickHandler);
+  popup.addEventListener('mousedown', popupClickHandler);
   window.addEventListener('keydown', keydownHandler);
+  popupActive = popup;
 }
 
 function closePopup(popup) {
-  popup.removeEventListener('click', popupClickHandler);
+  popup.removeEventListener('mousedown', popupClickHandler);
   window.removeEventListener('keydown', keydownHandler);
+  resetPopupForm(popup);
   popup.classList.remove('popup_opened');
 }
 
@@ -105,6 +132,14 @@ function editProfileHandler() {
   openPopup(popupEditProfile);
   popupEditProfileNameInput.value = profileName.textContent;
   popupEditProfileJobInput.value = profileJob.textContent;
+  setButtonState(popupActive.querySelector('.button_type_submit'), true);
+}
+
+function addCardHandler() {
+  openPopup(popupAddCard);
+  setButtonState(popupActive.querySelector('.button_type_submit'), false);
+  // popupEditProfileFormSubmitButton.removeAttribute('disabled');
+  // popupEditProfileFormSubmitButton.classList.remove('button_disabled');
 }
 
 function createCard(cardName, cardLink, cardAlt = cardName) {
@@ -116,7 +151,7 @@ function createCard(cardName, cardLink, cardAlt = cardName) {
 
   cardElementImage.src = cardLink;
   cardElementImage.alt = cardAlt;
-  cardName ? cardElementName.textContent = cardName : cardElementName.textContent = 'Лучшее место в мире';
+  cardElementName.textContent = cardName || 'Лучшее место в мире';
 
   cardElementTrash.addEventListener('click', removeHandler);
   cardElementImage.addEventListener('click', imageHandler);
@@ -132,6 +167,7 @@ function popupEditProfileFormHandler(event) {
   event.preventDefault();
   profileName.textContent = popupEditProfileNameInput.value;
   profileJob.textContent = popupEditProfileJobInput.value;
+
   closePopup(popupEditProfile);
 }
 
@@ -143,7 +179,7 @@ function popupAddCardFormHandler(event) {
 }
 
 buttonEditProfile.addEventListener('click', editProfileHandler);
-buttonAddCard.addEventListener('click', () => openPopup(popupAddCard));
+buttonAddCard.addEventListener('click', addCardHandler);
 popupEditProfileForm.addEventListener('submit', popupEditProfileFormHandler);
 popupAddCardForm.addEventListener('submit', popupAddCardFormHandler);
 
