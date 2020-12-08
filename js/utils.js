@@ -11,7 +11,7 @@ function closePopup(popup) {
   const popupForm = popup.querySelector('.form');
   popup.removeEventListener('mousedown', popupClickHandler);
   window.removeEventListener('keydown', keydownHandler);
-  if (popupForm) popupForm.formValidator.resetPopupForm();
+  if (popupForm) popupForm.formValidator.resetForm();
   popup.classList.remove('popup_opened');
 }
 

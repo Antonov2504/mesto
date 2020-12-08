@@ -7,7 +7,7 @@ export default class FormValidator {
   }
 
   // Метод resetPopupForm очищает форму от ошибок, очищает поля ввода 
-  resetPopupForm = () => {
+  resetForm = () => {
     this._inputErrorList = Array.from(this._element.querySelectorAll(`.${this._settings.inputErrorClass}`));
     this._errorList = Array.from(this._element.querySelectorAll(`.${this._settings.errorClass}`));
     this._inputErrorList.forEach(inputElement => inputElement.classList.remove(this._settings.inputErrorClass));
