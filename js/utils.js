@@ -8,10 +8,10 @@ function openPopup(popup) {
 }
 
 function closePopup(popup) {
-  const popupForm = popup.querySelector(objSettings.formSelector);
+  const popupForm = popup.querySelector('.form');
   popup.removeEventListener('mousedown', popupClickHandler);
   window.removeEventListener('keydown', keydownHandler);
-  if (popupForm) resetPopupForm(popupForm);
+  if (popupForm) popupForm.formValidator.resetPopupForm();
   popup.classList.remove('popup_opened');
 }
 
@@ -26,15 +26,6 @@ function popupClickHandler(event) {
   if (event.target.classList.contains('popup') || event.target.classList.contains('button_type_close-popup')) closePopup(popup);
 }
 
-// Вынести в класс Form метод _resetForm()
-function resetPopupForm(popupForm) {
-  const inputList = Array.from(popupForm.querySelectorAll(`.${objSettings.inputErrorClass}`));
-  const errorList = Array.from(popupForm.querySelectorAll(`.${objSettings.errorClass}`));
-  inputList.forEach(inputElement => inputElement.classList.remove(objSettings.inputErrorClass));
-  errorList.forEach(error => error.classList.remove(objSettings.errorClass));
-  popupForm.reset();
-}
-
 function setButtonState(buttonElement, buttonState) {
   if (buttonState) {
     buttonElement.removeAttribute('disabled');
@@ -45,4 +36,4 @@ function setButtonState(buttonElement, buttonState) {
   }
 }
 
-export { popupActive, resetPopupForm, openPopup, closePopup, setButtonState };
+export { popupActive, openPopup, closePopup, setButtonState };

@@ -1,4 +1,5 @@
 import Card from './Card.js';
+import FormValidator from './FormValidator.js';
 import { popupActive, openPopup, closePopup, setButtonState } from './utils.js';
 
 // Элементы страницы
@@ -7,6 +8,7 @@ const profileName = page.querySelector('.profile__name');
 const profileJob = page.querySelector('.profile__job');
 const buttonEditProfile = page.querySelector('.button_type_edit-profile');
 const buttonAddCard = page.querySelector('.button_type_add-card');
+const formsList = Array.from(document.forms);
 
 // Элементы попапа редактирования профиля
 const popupEditProfile = {
@@ -66,30 +68,6 @@ const cards = [
   }
 ];
 
-// // + В Класс Card метод _getTemplate() находит template на странице
-// const cardTemplate = document.querySelector('#card-template').content;
-
-// // + В Класс Card метод _setEventListeners() добавить/убрать лайк по клику Отдельный handler
-// function likeHandler(event) {
-//   event.target.classList.toggle('button_type_add-like-active');
-// }
-
-// // + В Класс Card метод _setEventListeners() удалить карточку по клику Отдельный handler _removeCard()
-// function removeHandler(event) {
-//   event.target.closest('.card').remove();
-// }
-
-// // + В Класс Card метод _setEventListeners() открыть картинку по клику Отдельный handler _showImage()
-// function imageHandler(evt) {
-//   // const cardName = card.querySelector('.card__name');
-//   // const cardImage = card.querySelector('.card__image');
-
-//   // popupShowCardImage.src = cardImage.src;
-//   // popupShowCardImage.alt = cardImage.alt;
-//   // popupShowCardName.textContent = cardName.textContent;
-//   openPopup(popupShowCard);
-// }
-
 function editProfileHandler() {
   openPopup(popupEditProfile.el);
   popupEditProfile.name.value = profileName.textContent;
@@ -102,34 +80,10 @@ function addCardHandler() {
   setButtonState(popupActive.querySelector('.button_type_submit'), false);
 }
 
-// // + В Класс Card метод createCard() наполняет карточку контентом, вызывает метод прослушивания событий
-// function createCard(cardName, cardLink, cardAlt = cardName) {
-//   const cardElement = cardTemplate.cloneNode(true);
-//   const cardElementImage = cardElement.querySelector('.card__image');
-//   const cardElementName = cardElement.querySelector('.card__name');
-//   const cardElementTrash = cardElement.querySelector('.button_type_remove-card');
-//   const cardElementLike = cardElement.querySelector('.button_type_add-like');
-
-//   cardElementImage.src = cardLink;
-//   cardElementImage.alt = cardAlt;
-//   cardElementName.textContent = cardName || 'Лучшее место в мире';
-
-//   cardElementTrash.addEventListener('click', removeHandler);
-// cardElementImage.addEventListener('click', imageHandler);
-//   cardElementLike.addEventListener('click', likeHandler);
-//   return cardElement;
-// }
-
-// // + В Класс Card метод _addCard() добавляет карточку в разметку
-// function addCard(cardContainer, card, isPrepend = true) {
-//   isPrepend ? cardContainer.prepend(card) : cardContainer.append(card);
-// }
-
 function popupEditProfileFormHandler(event) {
   event.preventDefault();
   profileName.textContent = popupEditProfile.name.value;
   profileJob.textContent = popupEditProfile.job.value;
-
   closePopup(popupEditProfile.el);
 }
 
@@ -142,9 +96,7 @@ function popupAddCardFormHandler(evt) {
   });
   const cardElement = new Card(cards[cards.length - 1], '#card-template', '.cards');
   cardElement.addCard();
-  // addCard(cardContainer, createCard(popupAddCard.name.value, popupAddCard.link.value));
   closePopup(popupAddCard.el);
-  evt.target.reset();
 }
 
 buttonEditProfile.addEventListener('click', editProfileHandler);
@@ -158,4 +110,16 @@ cards.forEach(card => {
   cardElement.addCard();
 });
 
-// export { openPopup, popupShowCard };
+// Для каждой формы создаем экземпляр класса FormValidator и запускаем валидацию формы
+formsList.forEach(form => {
+  form.settings = {
+    formSelector: '.form',
+    inputSelector: '.form__input',
+    submitButtonSelector: '.button_type_submit',
+    inactiveButtonClass: 'button_disabled',
+    inputErrorClass: 'form__input_type_error',
+    errorClass: 'form__input-error_active'
+  };
+  form.formValidator = new FormValidator(form.settings, form);
+  form.formValidator.enableValidation();
+})
