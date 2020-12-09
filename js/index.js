@@ -1,6 +1,5 @@
 import Card from './Card.js';
 import FormValidator from './FormValidator.js';
-import { setButtonState } from './utils.js';
 
 // Элементы страницы
 const page = document.querySelector('.page');
@@ -8,6 +7,8 @@ const profileName = page.querySelector('.profile__name');
 const profileJob = page.querySelector('.profile__job');
 const buttonEditProfile = page.querySelector('.button_type_edit-profile');
 const buttonAddCard = page.querySelector('.button_type_add-card');
+const cardContainer = page.querySelector('.cards');
+
 const formsList = Array.from(document.forms);
 
 // Элементы попапа редактирования профиля
@@ -35,7 +36,7 @@ popupShowCard.image = popupShowCard.el.querySelector('.popup__image');
 popupShowCard.imageCaption = popupShowCard.el.querySelector('.popup__caption');
 
 // Шаблон карточек
-const cards = [
+const initialCards = [
   {
     name: 'Череповец',
     alt: 'Камерный театр в городе Череповце.',
@@ -73,8 +74,24 @@ let popupActive = document.querySelector('.popup_opened');    // Открыты�
 // Массив настроек форм
 const formSettingsList = [];
 
+// Функция setButtonState() задает статус кнопке submit формы активна/неактивна. 
+// Кнопка submit popupEditProfile согласно брифу активна при первом запуске, Кнопка submit popupAddCard неактивна.
+// Т.к. при открытии popupEditProfile содержимое полей ввода меняется программно, событие input не срабатывает, поля ввода распознаются как пустые, input.validity.valid === false, кнопка submit неактивна.
+// Поэтому с помощью функции setButtonState() для формы в popupEditProfile кнопка submit задается активной в явном виде.
+function setButtonState(buttonElement, buttonState) {
+  if (buttonState) {
+    buttonElement.removeAttribute('disabled');
+    buttonElement.classList.remove('button_disabled');
+  } else {
+    buttonElement.setAttribute('disabled', true);
+    buttonElement.classList.add('button_disabled');
+  }
+}
+
 function keydownHandler(event) {
-  if (popupActive && event.key === "Escape") closePopup(popupOpened);
+  if (event.key === "Escape") {
+    closePopup(popupActive)
+  };
 }
 
 function popupClickHandler(event) {
@@ -86,14 +103,14 @@ function popupClickHandler(event) {
 function openPopup(popup) {
   popup.classList.add('popup_opened');
   popup.addEventListener('mousedown', popupClickHandler);
-  window.addEventListener('keydown', keydownHandler);
+  document.addEventListener('keydown', keydownHandler);
   popupActive = popup;
 }
 
 function closePopup(popup) {
   const popupForm = popup.querySelector('.form');
   popup.removeEventListener('mousedown', popupClickHandler);
-  window.removeEventListener('keydown', keydownHandler);
+  document.removeEventListener('keydown', keydownHandler);
   if (popupForm) {
     resetForm(popupForm);
   };
@@ -101,7 +118,6 @@ function closePopup(popup) {
 }
 
 function resetForm(formElement) {
-  console.log(formSettingsList[Array.from(document.forms).indexOf(formElement)].inputErrorClass);
   const formSettings = formSettingsList[Array.from(document.forms).indexOf(formElement)];
   const inputErrorList = Array.from(formElement.querySelectorAll(`.${formSettings.inputErrorClass}`));
   const errorList = Array.from(formElement.querySelectorAll(`.${formSettings.errorClass}`));
@@ -132,12 +148,13 @@ function popupEditProfileFormHandler(event) {
 // Создание экземпляра класса Card по submit
 function popupAddCardFormHandler(evt) {
   evt.preventDefault();
-  cards.push({
+  const cardContent = {
     name: popupAddCard.name.value,
     link: popupAddCard.link.value
-  });
-  const cardElement = new Card(cards[cards.length - 1], '#card-template', '.cards');
-  cardElement.addCard();
+  };
+  const cardElement = new Card(cardContent, '#card-template');
+  cardContainer.prepend(cardElement.createCard());
+
   closePopup(popupAddCard.el);
 }
 
@@ -147,9 +164,9 @@ popupEditProfile.form.addEventListener('submit', popupEditProfileFormHandler);
 popupAddCard.form.addEventListener('submit', popupAddCardFormHandler);
 
 // Создание карточек по умолчанию
-cards.forEach(card => {
-  const cardElement = new Card(card, '#card-template', '.cards', false, () => openPopup(popupShowCard.el));
-  cardElement.addCard();
+initialCards.forEach(card => {
+  const cardElement = new Card(card, '#card-template');
+  cardContainer.append(cardElement.createCard());
 });
 
 // Для каждой формы создаем экземпляр класса FormValidator и запускаем валидацию формы

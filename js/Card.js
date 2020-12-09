@@ -1,13 +1,11 @@
 import { openPopup } from './index.js';
 
 export default class Card {
-  constructor(data, cardSelector, cardContainer, isPrepend = true) {
+  constructor(data, cardSelector) {
     this._name = data.name;
     this._alt = data.alt;
     this._link = data.link;
     this._cardSelector = cardSelector;
-    this._cardContainer = document.querySelector(cardContainer);
-    this._isPrepend = isPrepend;
   }
 
   _getTemplate = () => {
@@ -20,7 +18,7 @@ export default class Card {
     return cardElement;
   }
 
-  _createCard = () => {
+  createCard = () => {
     this._element = this._getTemplate();
 
     this._element.image = this._element.querySelector('.card__image');
@@ -35,10 +33,6 @@ export default class Card {
     this._setEventListeners();
 
     return this._element;
-  }
-
-  addCard = () => {
-    this._isPrepend ? this._cardContainer.prepend(this._createCard()) : this._cardContainer.append(this._createCard());
   }
 
   _setEventListeners = () => {
