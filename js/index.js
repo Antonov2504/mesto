@@ -1,6 +1,6 @@
 import Card from './Card.js';
 import FormValidator from './FormValidator.js';
-import { popupActive, openPopup, closePopup, setButtonState } from './utils.js';
+import { setButtonState } from './utils.js';
 
 // Элементы страницы
 const page = document.querySelector('.page');
@@ -68,6 +68,48 @@ const cards = [
   }
 ];
 
+let popupActive = document.querySelector('.popup_opened');    // Открытый на странице popup
+
+// Массив настроек форм
+const formSettingsList = [];
+
+function keydownHandler(event) {
+  if (popupActive && event.key === "Escape") closePopup(popupOpened);
+}
+
+function popupClickHandler(event) {
+  const popup = document.querySelector('.popup_opened');
+  event.stopPropagation();
+  if (event.target.classList.contains('popup') || event.target.classList.contains('button_type_close-popup')) closePopup(popup);
+}
+
+function openPopup(popup) {
+  popup.classList.add('popup_opened');
+  popup.addEventListener('mousedown', popupClickHandler);
+  window.addEventListener('keydown', keydownHandler);
+  popupActive = popup;
+}
+
+function closePopup(popup) {
+  const popupForm = popup.querySelector('.form');
+  popup.removeEventListener('mousedown', popupClickHandler);
+  window.removeEventListener('keydown', keydownHandler);
+  if (popupForm) {
+    resetForm(popupForm);
+  };
+  popup.classList.remove('popup_opened');
+}
+
+function resetForm(formElement) {
+  console.log(formSettingsList[Array.from(document.forms).indexOf(formElement)].inputErrorClass);
+  const formSettings = formSettingsList[Array.from(document.forms).indexOf(formElement)];
+  const inputErrorList = Array.from(formElement.querySelectorAll(`.${formSettings.inputErrorClass}`));
+  const errorList = Array.from(formElement.querySelectorAll(`.${formSettings.errorClass}`));
+  inputErrorList.forEach(inputElement => inputElement.classList.remove(formSettings.inputErrorClass));
+  errorList.forEach(error => error.classList.remove(formSettings.errorClass));
+  formElement.reset();
+}
+
 function editProfileHandler() {
   openPopup(popupEditProfile.el);
   popupEditProfile.name.value = profileName.textContent;
@@ -111,8 +153,8 @@ cards.forEach(card => {
 });
 
 // Для каждой формы создаем экземпляр класса FormValidator и запускаем валидацию формы
-formsList.forEach(form => {
-  form.settings = {
+formsList.forEach(formElement => {
+  const formSettings = {
     formSelector: '.form',
     inputSelector: '.form__input',
     submitButtonSelector: '.button_type_submit',
@@ -120,6 +162,11 @@ formsList.forEach(form => {
     inputErrorClass: 'form__input_type_error',
     errorClass: 'form__input-error_active'
   };
-  form.formValidator = new FormValidator(form.settings, form);
-  form.formValidator.enableValidation();
+
+  formSettingsList.push(formSettings);
+
+  const form = new FormValidator(formSettings, formElement);
+  form.enableValidation();
 })
+
+export { openPopup }
