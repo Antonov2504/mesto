@@ -8,6 +8,7 @@ export default class Card {
     this._cardSelector = cardSelector;
   }
 
+  // Метод _getTemplate() создает клон template карточки
   _getTemplate = () => {
     const cardElement = document
       .querySelector(this._cardSelector)
@@ -18,6 +19,7 @@ export default class Card {
     return cardElement;
   }
 
+  // Метод createCard() создает готовую карточку с контентом и слушателями событий
   createCard = () => {
     this._element = this._getTemplate();
 
@@ -35,6 +37,7 @@ export default class Card {
     return this._element;
   }
 
+  // Метод _setEventListeners() задает слушателей событий
   _setEventListeners = () => {
     this._element.trash.addEventListener('click', (evt) => {
       this._removeHandler(evt);
@@ -47,10 +50,12 @@ export default class Card {
     });
   }
 
+  // Метод _removeHandler() удаляет карточку из DOM
   _removeHandler = (evt) => {
     evt.target.closest('.card').remove();
   }
 
+  // Метод _showImage() вызывает попап с изображением карточки
   _showImage = () => {
     const popup = document.querySelector('.popup_type_show-card');
     const image = popup.querySelector('.popup__image');
@@ -61,6 +66,7 @@ export default class Card {
     openPopup(popup);
   }
 
+  // Метод _likeHandler() управляет состоянием лайка
   _likeHandler = (evt) => {
     evt.target.classList.toggle('button_type_add-like-active');
   }

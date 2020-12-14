@@ -9,8 +9,6 @@ const buttonEditProfile = page.querySelector('.button_type_edit-profile');
 const buttonAddCard = page.querySelector('.button_type_add-card');
 const cardContainer = page.querySelector('.cards');
 
-const formsList = Array.from(document.forms);
-
 // Элементы попапа редактирования профиля
 const popupEditProfile = {
   el: document.querySelector('.popup_type_edit-profile')
@@ -71,23 +69,6 @@ const initialCards = [
 
 let popupActive = document.querySelector('.popup_opened');    // Открытый на странице popup
 
-// Массив настроек форм
-const formSettingsList = [];
-
-// Функция setButtonState() задает статус кнопке submit формы активна/неактивна. 
-// Кнопка submit popupEditProfile согласно брифу активна при первом запуске, Кнопка submit popupAddCard неактивна.
-// Т.к. при открытии popupEditProfile содержимое полей ввода меняется программно, событие input не срабатывает, поля ввода распознаются как пустые, input.validity.valid === false, кнопка submit неактивна.
-// Поэтому с помощью функции setButtonState() для формы в popupEditProfile кнопка submit задается активной в явном виде.
-function setButtonState(buttonElement, buttonState) {
-  if (buttonState) {
-    buttonElement.removeAttribute('disabled');
-    buttonElement.classList.remove('button_disabled');
-  } else {
-    buttonElement.setAttribute('disabled', true);
-    buttonElement.classList.add('button_disabled');
-  }
-}
-
 function keydownHandler(event) {
   if (event.key === "Escape") {
     closePopup(popupActive)
@@ -108,34 +89,22 @@ function openPopup(popup) {
 }
 
 function closePopup(popup) {
-  const popupForm = popup.querySelector('.form');
   popup.removeEventListener('mousedown', popupClickHandler);
   document.removeEventListener('keydown', keydownHandler);
-  if (popupForm) {
-    resetForm(popupForm);
-  };
   popup.classList.remove('popup_opened');
 }
 
-function resetForm(formElement) {
-  const formSettings = formSettingsList[Array.from(document.forms).indexOf(formElement)];
-  const inputErrorList = Array.from(formElement.querySelectorAll(`.${formSettings.inputErrorClass}`));
-  const errorList = Array.from(formElement.querySelectorAll(`.${formSettings.errorClass}`));
-  inputErrorList.forEach(inputElement => inputElement.classList.remove(formSettings.inputErrorClass));
-  errorList.forEach(error => error.classList.remove(formSettings.errorClass));
-  formElement.reset();
-}
-
 function editProfileHandler() {
-  openPopup(popupEditProfile.el);
+  formValidationEditProfile.resetForm();
+  formValidationEditProfile.setButtonStateEnable();
   popupEditProfile.name.value = profileName.textContent;
   popupEditProfile.job.value = profileJob.textContent;
-  setButtonState(popupActive.querySelector('.button_type_submit'), true);
+  openPopup(popupEditProfile.el);
 }
 
 function addCardHandler() {
+  formValidationAddCard.resetForm();
   openPopup(popupAddCard.el);
-  setButtonState(popupActive.querySelector('.button_type_submit'), false);
 }
 
 function popupEditProfileFormHandler(event) {
@@ -170,20 +139,27 @@ initialCards.forEach(card => {
 });
 
 // Для каждой формы создаем экземпляр класса FormValidator и запускаем валидацию формы
-formsList.forEach(formElement => {
-  const formSettings = {
-    formSelector: '.form',
-    inputSelector: '.form__input',
-    submitButtonSelector: '.button_type_submit',
-    inactiveButtonClass: 'button_disabled',
-    inputErrorClass: 'form__input_type_error',
-    errorClass: 'form__input-error_active'
-  };
+const formValidationEditProfile = new FormValidator({
+  formSelector: '.form',
+  inputSelector: '.form__input',
+  submitButtonSelector: '.button_type_submit',
+  inactiveButtonClass: 'button_disabled',
+  inputErrorClass: 'form__input_type_error',
+  errorClass: 'form__input-error_active'
+}, popupEditProfile.form);
 
-  formSettingsList.push(formSettings);
+formValidationEditProfile.enableValidation();
 
-  const form = new FormValidator(formSettings, formElement);
-  form.enableValidation();
-})
+
+const formValidationAddCard = new FormValidator({
+  formSelector: '.form',
+  inputSelector: '.form__input',
+  submitButtonSelector: '.button_type_submit',
+  inactiveButtonClass: 'button_disabled',
+  inputErrorClass: 'form__input_type_error',
+  errorClass: 'form__input-error_active'
+}, popupAddCard.form);
+
+formValidationAddCard.enableValidation();
 
 export { openPopup }
