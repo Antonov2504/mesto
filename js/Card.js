@@ -1,5 +1,3 @@
-import { openPopup } from './index.js';
-
 export default class Card {
   constructor(data, cardSelector) {
     this._name = data.name;
@@ -63,7 +61,7 @@ export default class Card {
     image.src = this._element.image.src;
     image.alt = this._element.image.alt;
     imageCaption.textContent = this._element.name.textContent;
-    openPopup(popup);
+    // openPopup(popup);
   }
 
   // Метод _likeHandler() управляет состоянием лайка
