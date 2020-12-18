@@ -1,9 +1,10 @@
 export default class Card {
-  constructor(data, cardSelector) {
+  constructor({ data, handleCardClick }, cardSelector) {
     this._name = data.name;
     this._alt = data.alt;
     this._link = data.link;
     this._cardSelector = cardSelector;
+    this._handleCardClick = handleCardClick;
   }
 
   // Метод _getTemplate() создает клон template карточки
@@ -41,7 +42,7 @@ export default class Card {
       this._removeHandler(evt);
     });
     this._element.image.addEventListener('click', () => {
-      this._showImage();
+      this._handleCardClick(this._element);
     });
     this._element.like.addEventListener('click', (evt) => {
       this._likeHandler(evt);

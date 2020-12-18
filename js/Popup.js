@@ -3,14 +3,14 @@ class Popup {
     this._element = popup;
   }
 
-  open = () => {
+  open() {
     this._element.classList.add('popup_opened');
-    this._setEventListener();
+    this._setEventListeners();
   }
 
-  close = () => {
-    this._removeEventListener();
+  close() {
     this._element.classList.remove('popup_opened');
+    this._removeEventListeners();
   }
 
   _handleEscClose = (evt) => {
@@ -24,12 +24,12 @@ class Popup {
     if (evt.target.classList.contains('popup') || evt.target.classList.contains('button_type_close-popup')) this.close(this._element);
   }
 
-  _setEventListener = (evt) => {
-    this._element.addEventListener('click', this._popupClickHandler);
+  _setEventListeners() {
+    this._element.addEventListener('mousedown', this._popupClickHandler);
     document.addEventListener('keydown', this._handleEscClose);
   }
 
-  _removeEventListener() {
+  _removeEventListeners() {
     this._element.removeEventListener('mousedown', this._popupClickHandler);
     document.removeEventListener('keydown', this._handleEscClose);
   }
