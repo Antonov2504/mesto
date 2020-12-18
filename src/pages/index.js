@@ -1,10 +1,11 @@
-import { buttonEditProfile, buttonAddCard, popupEditProfile, popupAddCard, popupShowCard, initialCards } from './constants.js'
-import Section from './Section.js';
-import Card from './Card.js';
-import FormValidator from './FormValidator.js';
-import PopupWithImage from './PopupWithImage.js';
-import PopupWithForm from './PopupWithForm.js';
-import UserInfo from './UserInfo.js';
+import './index.css';
+import { buttonEditProfile, buttonAddCard, popupEditProfile, popupAddCard, popupShowCard, initialCards } from './../components/constants.js'
+import Section from './../components/Section.js';
+import Card from './../components/Card.js';
+import FormValidator from './../components/FormValidator.js';
+import PopupWithImage from './../components/PopupWithImage.js';
+import PopupWithForm from './../components/PopupWithForm.js';
+import UserInfo from './../components/UserInfo.js';
 
 // Обработка клика по кнопке редактирования профиля
 function editProfileHandler() {
@@ -16,20 +17,17 @@ function editProfileHandler() {
 }
 
 // Обработка формы изменения профиля по submit
-function popupEditProfileFormHandler(evt) {
-  evt.preventDefault();
-  user.setUserInfo(popupEditProfile.class.getInputValues());
+function popupEditProfileFormHandler(inputValues) {
+  user.setUserInfo(inputValues);
   popupEditProfile.class.close();
 }
 
 // Создание экземпляра класса Card по submit
-function popupAddCardFormHandler(evt) {
-  evt.preventDefault();
-  const cardContent = popupAddCard.class.getInputValues();
+function popupAddCardFormHandler(inputValues) {
   const card = new Card({
     data: {
-      name: cardContent['card-name'],
-      link: cardContent['card-link']
+      name: inputValues['card-name'],
+      link: inputValues['card-link']
     },
     handleCardClick: (card) => popupShowCard.class.open(card)
   }, '#card-template');
@@ -61,8 +59,8 @@ const formValidationAddCard = new FormValidator({
 formValidationAddCard.enableValidation();
 
 // Инициализация попапов
-popupEditProfile.class = new PopupWithForm(popupEditProfile.el, popupEditProfileFormHandler, formValidationEditProfile.resetForm);
-popupAddCard.class = new PopupWithForm(popupAddCard.el, popupAddCardFormHandler, formValidationAddCard.resetForm);
+popupEditProfile.class = new PopupWithForm(popupEditProfile.el, popupEditProfileFormHandler, formValidationEditProfile.resetForm.bind(formValidationEditProfile));
+popupAddCard.class = new PopupWithForm(popupAddCard.el, popupAddCardFormHandler, formValidationAddCard.resetForm.bind(formValidationAddCard));
 popupShowCard.class = new PopupWithImage(popupShowCard.el);
 
 // Создание карточек и наполнение контейнера карточек, как экземпляра класса Section

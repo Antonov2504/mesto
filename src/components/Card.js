@@ -8,7 +8,7 @@ export default class Card {
   }
 
   // Метод _getTemplate() создает клон template карточки
-  _getTemplate = () => {
+  _getTemplate() {
     const cardElement = document
       .querySelector(this._cardSelector)
       .content
@@ -19,7 +19,7 @@ export default class Card {
   }
 
   // Метод createCard() создает готовую карточку с контентом и слушателями событий
-  createCard = () => {
+  createCard() {
     this._element = this._getTemplate();
 
     this._element.image = this._element.querySelector('.card__image');
@@ -37,7 +37,7 @@ export default class Card {
   }
 
   // Метод _setEventListeners() задает слушателей событий
-  _setEventListeners = () => {
+  _setEventListeners() {
     this._element.trash.addEventListener('click', (evt) => {
       this._removeHandler(evt);
     });
@@ -50,23 +50,23 @@ export default class Card {
   }
 
   // Метод _removeHandler() удаляет карточку из DOM
-  _removeHandler = (evt) => {
+  _removeHandler(evt) {
     evt.target.closest('.card').remove();
   }
 
-  // Метод _showImage() вызывает попап с изображением карточки
-  _showImage = () => {
-    const popup = document.querySelector('.popup_type_show-card');
-    const image = popup.querySelector('.popup__image');
-    const imageCaption = popup.querySelector('.popup__caption');
-    image.src = this._element.image.src;
-    image.alt = this._element.image.alt;
-    imageCaption.textContent = this._element.name.textContent;
-    // openPopup(popup);
-  }
+  // // Метод _showImage() вызывает попап с изображением карточки
+  // _showImage() {
+  //   const popup = document.querySelector('.popup_type_show-card');
+  //   const image = popup.querySelector('.popup__image');
+  //   const imageCaption = popup.querySelector('.popup__caption');
+  //   image.src = this._element.image.src;
+  //   image.alt = this._element.image.alt;
+  //   imageCaption.textContent = this._element.name.textContent;
+  //   // openPopup(popup);
+  // }
 
   // Метод _likeHandler() управляет состоянием лайка
-  _likeHandler = (evt) => {
+  _likeHandler(evt) {
     evt.target.classList.toggle('button_type_add-like-active');
   }
 }

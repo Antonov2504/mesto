@@ -1,3 +1,10 @@
+import cherepovetsImage from './../images/Cherepovets.jpg';
+import sochiImage from './../images/Sochi.jpg';
+import nizhnyNovgorodImage from './../images/Nizhny-Novgorod.jpg';
+import moscowImage from './../images/Moscow.jpg';
+import saintPetersburgImage from './../images/Saint-Petersburg.jpg';
+import kazanImage from './../images/Kazan.jpg';
+
 // Элементы страницы
 const buttonEditProfile = document.querySelector('.button_type_edit-profile');
 const buttonAddCard = document.querySelector('.button_type_add-card');
@@ -26,32 +33,32 @@ const initialCards = [
   {
     name: 'Череповец',
     alt: 'Камерный театр в городе Череповце.',
-    link: './images/Cherepovets.jpg'
+    link: cherepovetsImage
   },
   {
     name: 'Сочи',
     alt: 'Ночной город Сочи с высоты птичьего полета. Сочи - жаркие ночи.',
-    link: './images/Sochi.jpg'
+    link: sochiImage
   },
   {
     name: 'Нижний Новгород',
     alt: 'Слияние Оки и Волги. Знаменитая стрелка в городе Нижнем Новгороде. Вид от стен Кремля.',
-    link: './images/Nizhny-Novgorod.jpg'
+    link: nizhnyNovgorodImage
   },
   {
     name: 'Москва',
     alt: "'Москва-Сити' с высоты птичьего полета. Главный бизнес-центр в Москве.",
-    link: './images/Moscow.jpg'
+    link: moscowImage
   },
   {
     name: 'Санкт-Петербург',
     alt: 'Исаакиевский собор в лучах солнца, город Санкт-Петербург. Над золотым куполом пролетает стая птиц.',
-    link: './images/Saint-Petersburg.jpg'
+    link: saintPetersburgImage
   },
   {
     name: 'Казань',
     alt: 'Кул-Шариф - главная соборная джума-мечеть республики Татарстан и города Казани.',
-    link: './images/Kazan.jpg'
+    link: kazanImage
   }
 ];
 

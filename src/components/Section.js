@@ -5,11 +5,11 @@ class Section {
     this._containerSelector = containerSelector;
   }
 
-  renderItems = () => {
+  renderItems() {
     this._items.forEach(item => this._renderer(item));
   }
 
-  addItem = (element, isPrepend = false) => {
+  addItem(element, isPrepend = false) {
     isPrepend
       ? document.querySelector(this._containerSelector).prepend(element)
       : document.querySelector(this._containerSelector).append(element);
