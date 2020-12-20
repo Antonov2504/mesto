@@ -13,6 +13,7 @@ export default class FormValidator {
     this._inputErrorList.forEach(inputElement => inputElement.classList.remove(this._settings.inputErrorClass));
     this._errorList.forEach(error => error.classList.remove(this._settings.errorClass));
     this._element.reset();
+    this._toggleButtonState();
   }
 
   // Метод showInputError() выводит описание ошибки валидации поля ввода 

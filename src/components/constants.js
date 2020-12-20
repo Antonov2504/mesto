@@ -8,6 +8,8 @@ import kazanImage from './../images/Kazan.jpg';
 // Элементы страницы
 const buttonEditProfile = document.querySelector('.button_type_edit-profile');
 const buttonAddCard = document.querySelector('.button_type_add-card');
+const cardTemplateSelector = '#card-template';
+const cardContainerSelector = '.cards';
 
 // Элементы попапа редактирования профиля
 const popupEditProfile = {
@@ -62,4 +64,33 @@ const initialCards = [
   }
 ];
 
-export { buttonEditProfile, buttonAddCard, popupEditProfile, popupAddCard, popupShowCard, initialCards }
+// Настройки селекторов и классов для валидации форм
+const formValidationConfigEditProfile = {
+  formSelector: '.form',
+  inputSelector: '.form__input',
+  submitButtonSelector: '.button_type_submit',
+  inactiveButtonClass: 'button_disabled',
+  inputErrorClass: 'form__input_type_error',
+  errorClass: 'form__input-error_active'
+}
+const formValidationConfigAddCard = {
+  formSelector: '.form',
+  inputSelector: '.form__input',
+  submitButtonSelector: '.button_type_submit',
+  inactiveButtonClass: 'button_disabled',
+  inputErrorClass: 'form__input_type_error',
+  errorClass: 'form__input-error_active'
+}
+
+export {
+  buttonEditProfile,
+  buttonAddCard,
+  cardContainerSelector,
+  cardTemplateSelector,
+  popupEditProfile,
+  popupAddCard,
+  popupShowCard,
+  initialCards,
+  formValidationConfigEditProfile,
+  formValidationConfigAddCard
+}

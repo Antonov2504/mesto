@@ -1,11 +1,30 @@
 import './index.css';
-import { buttonEditProfile, buttonAddCard, popupEditProfile, popupAddCard, popupShowCard, initialCards } from './../components/constants.js'
+
+import {
+  buttonEditProfile,
+  buttonAddCard,
+  cardContainerSelector,
+  cardTemplateSelector,
+  popupEditProfile,
+  popupAddCard,
+  popupShowCard,
+  initialCards,
+  formValidationConfigEditProfile,
+  formValidationConfigAddCard
+} from './../components/constants.js'
+
 import Section from './../components/Section.js';
 import Card from './../components/Card.js';
 import FormValidator from './../components/FormValidator.js';
 import PopupWithImage from './../components/PopupWithImage.js';
 import PopupWithForm from './../components/PopupWithForm.js';
 import UserInfo from './../components/UserInfo.js';
+
+// Создание экземпляра карточки
+function createCard({ data, handleCardClick }, cardSelector) {
+  const card = new Card({ data, handleCardClick }, cardSelector);
+  return card;
+}
 
 // Обработка клика по кнопке редактирования профиля
 function editProfileHandler() {
@@ -24,38 +43,23 @@ function popupEditProfileFormHandler(inputValues) {
 
 // Создание экземпляра класса Card по submit
 function popupAddCardFormHandler(inputValues) {
-  const card = new Card({
+  const card = createCard({
     data: {
       name: inputValues['card-name'],
       link: inputValues['card-link']
     },
     handleCardClick: (card) => popupShowCard.class.open(card)
-  }, '#card-template');
-  cardContainer.addItem(card.createCard(), true);
+  }, cardTemplateSelector);
+  // cardContainer.addItem(card.createCard(), true);
+  cardContainer.addItem(card.createCard());
   popupAddCard.class.close();
 }
 
 // Для каждой формы создаем экземпляр класса FormValidator и запускаем валидацию формы
-const formValidationEditProfile = new FormValidator({
-  formSelector: '.form',
-  inputSelector: '.form__input',
-  submitButtonSelector: '.button_type_submit',
-  inactiveButtonClass: 'button_disabled',
-  inputErrorClass: 'form__input_type_error',
-  errorClass: 'form__input-error_active'
-}, popupEditProfile.form);
-
+const formValidationEditProfile = new FormValidator(formValidationConfigEditProfile, popupEditProfile.form);
 formValidationEditProfile.enableValidation();
 
-const formValidationAddCard = new FormValidator({
-  formSelector: '.form',
-  inputSelector: '.form__input',
-  submitButtonSelector: '.button_type_submit',
-  inactiveButtonClass: 'button_disabled',
-  inputErrorClass: 'form__input_type_error',
-  errorClass: 'form__input-error_active'
-}, popupAddCard.form);
-
+const formValidationAddCard = new FormValidator(formValidationConfigAddCard, popupAddCard.form);
 formValidationAddCard.enableValidation();
 
 // Инициализация попапов
@@ -67,13 +71,13 @@ popupShowCard.class = new PopupWithImage(popupShowCard.el);
 const cardContainer = new Section({
   items: initialCards,
   renderer: (item) => {
-    const card = new Card({
+    const card = createCard({
       data: item,
       handleCardClick: (card) => popupShowCard.class.open(card)
-    }, '#card-template');
+    }, cardTemplateSelector);
     cardContainer.addItem(card.createCard());
   }
-}, '.cards');
+}, cardContainerSelector);
 
 // Отрисовка карточек по умолчанию
 cardContainer.renderItems();
