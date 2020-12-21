@@ -7,24 +7,25 @@ class Popup {
 
   open() {
     this._element.classList.add('popup_opened');
-    this.setEventListeners();
   }
 
   close() {
     this._element.classList.remove('popup_opened');
-    this.removeEventListeners();
   }
 
   _handleEscClose(evt) {
     if (evt.key === "Escape") {
       this.close(this._element);
-      console.log('esc');
+      this.removeEventListeners();
     };
   }
 
   _popupClickHandler(evt) {
     evt.stopPropagation();
-    if (evt.target.classList.contains('popup') || evt.target.classList.contains('button_type_close-popup')) this.close(this._element);
+    if (evt.target.classList.contains('popup') || evt.target.classList.contains('button_type_close-popup')) {
+      this.removeEventListeners();
+      this.close(this._element);
+    };
   }
 
   setEventListeners() {

@@ -5,12 +5,16 @@ import {
   buttonAddCard,
   cardContainerSelector,
   cardTemplateSelector,
-  popupEditProfile,
-  popupAddCard,
-  popupShowCard,
+  popupElementEditProfile,
+  popupElementEditProfileName,
+  popupElementEditProfileJob,
+  popupElementEditProfileForm,
+  popupElementAddCard,
+  popupElementAddCardForm,
+  popupElementShowCard,
   initialCards,
-  formValidationConfigEditProfile,
-  formValidationConfigAddCard
+  formValidationEditProfileConfig,
+  formValidationAddCardConfig
 } from './../components/constants.js'
 
 import Section from './../components/Section.js';
@@ -28,17 +32,20 @@ function createCard({ data, handleCardClick }, cardSelector) {
 
 // Обработка клика по кнопке редактирования профиля
 function editProfileHandler() {
+  formValidationEditProfile.resetForm();
   formValidationEditProfile.setButtonStateEnable();
   const { name: userName, job: userJob } = user.getUserInfo();
-  popupEditProfile.name.value = userName;
-  popupEditProfile.job.value = userJob;
-  popupEditProfile.class.open();
+  popupElementEditProfileName.value = userName;
+  popupElementEditProfileJob.value = userJob;
+  popupWithFormEditProfile.setEventListeners();
+  popupWithFormEditProfile.open();
 }
 
 // Обработка формы изменения профиля по submit
 function popupEditProfileFormHandler(inputValues) {
   user.setUserInfo(inputValues);
-  popupEditProfile.class.close();
+  popupWithFormEditProfile.removeEventListeners();
+  popupWithFormEditProfile.close();
 }
 
 // Создание экземпляра класса Card по submit
@@ -48,24 +55,28 @@ function popupAddCardFormHandler(inputValues) {
       name: inputValues['card-name'],
       link: inputValues['card-link']
     },
-    handleCardClick: (card) => popupShowCard.class.open(card)
+    handleCardClick: (card) => {
+      popupWithImageShowCard.setEventListeners();
+      popupWithImageShowCard.open(card);
+    }
   }, cardTemplateSelector);
   // cardContainer.addItem(card.createCard(), true);
   cardContainer.addItem(card.createCard());
-  popupAddCard.class.close();
+  popupWithFormAddCard.removeEventListeners();
+  popupWithFormAddCard.close();
 }
 
 // Для каждой формы создаем экземпляр класса FormValidator и запускаем валидацию формы
-const formValidationEditProfile = new FormValidator(formValidationConfigEditProfile, popupEditProfile.form);
+const formValidationEditProfile = new FormValidator(formValidationEditProfileConfig, popupElementEditProfileForm);
 formValidationEditProfile.enableValidation();
 
-const formValidationAddCard = new FormValidator(formValidationConfigAddCard, popupAddCard.form);
+const formValidationAddCard = new FormValidator(formValidationAddCardConfig, popupElementAddCardForm);
 formValidationAddCard.enableValidation();
 
 // Инициализация попапов
-popupEditProfile.class = new PopupWithForm(popupEditProfile.el, popupEditProfileFormHandler, formValidationEditProfile.resetForm.bind(formValidationEditProfile));
-popupAddCard.class = new PopupWithForm(popupAddCard.el, popupAddCardFormHandler, formValidationAddCard.resetForm.bind(formValidationAddCard));
-popupShowCard.class = new PopupWithImage(popupShowCard.el);
+const popupWithFormEditProfile = new PopupWithForm(popupElementEditProfile, popupEditProfileFormHandler);
+const popupWithFormAddCard = new PopupWithForm(popupElementAddCard, popupAddCardFormHandler);
+const popupWithImageShowCard = new PopupWithImage(popupElementShowCard);
 
 // Создание карточек и наполнение контейнера карточек, как экземпляра класса Section
 const cardContainer = new Section({
@@ -73,7 +84,10 @@ const cardContainer = new Section({
   renderer: (item) => {
     const card = createCard({
       data: item,
-      handleCardClick: (card) => popupShowCard.class.open(card)
+      handleCardClick: (card) => {
+        popupWithImageShowCard.setEventListeners();
+        popupWithImageShowCard.open(card);
+      }
     }, cardTemplateSelector);
     cardContainer.addItem(card.createCard());
   }
@@ -89,4 +103,8 @@ const user = new UserInfo({
 });
 
 buttonEditProfile.addEventListener('click', editProfileHandler);
-buttonAddCard.addEventListener('click', popupAddCard.class.open.bind(popupAddCard.class));
+buttonAddCard.addEventListener('click', () => {
+  formValidationAddCard.resetForm();
+  popupWithFormAddCard.setEventListeners();
+  popupWithFormAddCard.open();
+});

@@ -54,17 +54,6 @@ export default class Card {
     evt.target.closest('.card').remove();
   }
 
-  // // Метод _showImage() вызывает попап с изображением карточки
-  // _showImage() {
-  //   const popup = document.querySelector('.popup_type_show-card');
-  //   const image = popup.querySelector('.popup__image');
-  //   const imageCaption = popup.querySelector('.popup__caption');
-  //   image.src = this._element.image.src;
-  //   image.alt = this._element.image.alt;
-  //   imageCaption.textContent = this._element.name.textContent;
-  //   // openPopup(popup);
-  // }
-
   // Метод _likeHandler() управляет состоянием лайка
   _likeHandler(evt) {
     evt.target.classList.toggle('button_type_add-like-active');

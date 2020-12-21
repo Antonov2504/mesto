@@ -12,23 +12,17 @@ const cardTemplateSelector = '#card-template';
 const cardContainerSelector = '.cards';
 
 // Элементы попапа редактирования профиля
-const popupEditProfile = {
-  el: document.querySelector('.popup_type_edit-profile')
-};
-popupEditProfile.name = popupEditProfile.el.querySelector('.form__input_el_profile-name');
-popupEditProfile.job = popupEditProfile.el.querySelector('.form__input_el_profile-job');
-popupEditProfile.form = popupEditProfile.el.querySelector('.form');
+const popupElementEditProfile = document.querySelector('.popup_type_edit-profile');
+const popupElementEditProfileName = popupElementEditProfile.querySelector('.form__input_el_profile-name');
+const popupElementEditProfileJob = popupElementEditProfile.querySelector('.form__input_el_profile-job');
+const popupElementEditProfileForm = popupElementEditProfile.querySelector('.form');
 
 // Элементы попапа добавления карточки
-const popupAddCard = {
-  el: document.querySelector('.popup_type_add-card')
-};
-popupAddCard.form = popupAddCard.el.querySelector('.form');
+const popupElementAddCard = document.querySelector('.popup_type_add-card');
+const popupElementAddCardForm = popupElementAddCard.querySelector('.form');
 
 // Элементы попапа открытия карточки
-const popupShowCard = {
-  el: document.querySelector('.popup_type_show-card'),
-};
+const popupElementShowCard = document.querySelector('.popup_type_show-card');
 
 // Шаблон карточек
 const initialCards = [
@@ -65,7 +59,7 @@ const initialCards = [
 ];
 
 // Настройки селекторов и классов для валидации форм
-const formValidationConfigEditProfile = {
+const formValidationEditProfileConfig = {
   formSelector: '.form',
   inputSelector: '.form__input',
   submitButtonSelector: '.button_type_submit',
@@ -73,7 +67,7 @@ const formValidationConfigEditProfile = {
   inputErrorClass: 'form__input_type_error',
   errorClass: 'form__input-error_active'
 }
-const formValidationConfigAddCard = {
+const formValidationAddCardConfig = {
   formSelector: '.form',
   inputSelector: '.form__input',
   submitButtonSelector: '.button_type_submit',
@@ -87,10 +81,14 @@ export {
   buttonAddCard,
   cardContainerSelector,
   cardTemplateSelector,
-  popupEditProfile,
-  popupAddCard,
-  popupShowCard,
+  popupElementEditProfile,
+  popupElementEditProfileName,
+  popupElementEditProfileJob,
+  popupElementEditProfileForm,
+  popupElementAddCard,
+  popupElementAddCardForm,
+  popupElementShowCard,
   initialCards,
-  formValidationConfigEditProfile,
-  formValidationConfigAddCard
+  formValidationEditProfileConfig,
+  formValidationAddCardConfig
 }
