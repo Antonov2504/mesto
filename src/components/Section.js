@@ -9,11 +9,10 @@ class Section {
     this._items.forEach(item => this._renderer(item));
   }
 
-  addItem(element) {
-    // isPrepend
-    //   ? this._container.prepend(element)
-    //   : this._container.append(element);
-    this._container.prepend(element);
+  addItem(element, isPrepend = false) {
+    isPrepend
+      ? this._container.prepend(element)
+      : this._container.append(element);
   }
 }
 

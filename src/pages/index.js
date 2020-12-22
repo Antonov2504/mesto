@@ -60,8 +60,7 @@ function popupAddCardFormHandler(inputValues) {
       popupWithImageShowCard.open(card);
     }
   }, cardTemplateSelector);
-  // cardContainer.addItem(card.createCard(), true);
-  cardContainer.addItem(card.createCard());
+  cardContainer.addItem(card.createCard(), true);
   popupWithFormAddCard.removeEventListeners();
   popupWithFormAddCard.close();
 }
