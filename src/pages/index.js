@@ -1,6 +1,9 @@
 import './index.css';
 
 import {
+  profileAvatar,
+  profileName,
+  profileJob,
   buttonEditProfile,
   buttonAddCard,
   cardContainerSelector,
@@ -107,3 +110,18 @@ buttonAddCard.addEventListener('click', () => {
   popupWithFormAddCard.setEventListeners();
   popupWithFormAddCard.open();
 });
+
+// Загрузка информации о пользователе с сервера
+fetch('https://mesto.nomoreparties.co/v1/cohort-19/users/me', {
+  headers: {
+    authorization: 'c965dbbc-afa4-4385-8eef-dcc49737a825'
+  }
+})
+  .then(res => res.json())
+  .then((result) => {
+    console.log(result);
+    profileAvatar.src = result.avatar;
+    profileAvatar.alt = result.name;
+    profileName.textContent = result.name;
+    profileJob.textContent = result.about;
+  });

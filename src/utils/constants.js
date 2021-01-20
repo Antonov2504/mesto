@@ -6,6 +6,9 @@ import saintPetersburgImage from './../images/Saint-Petersburg.jpg';
 import kazanImage from './../images/Kazan.jpg';
 
 // Элементы страницы
+const profileAvatar = document.querySelector('.profile__avatar');
+const profileName = document.querySelector('.profile__name');
+const profileJob = document.querySelector('.profile__job');
 const buttonEditProfile = document.querySelector('.button_type_edit-profile');
 const buttonAddCard = document.querySelector('.button_type_add-card');
 const cardTemplateSelector = '#card-template';
@@ -77,6 +80,9 @@ const formValidationAddCardConfig = {
 }
 
 export {
+  profileAvatar,
+  profileName,
+  profileJob,
   buttonEditProfile,
   buttonAddCard,
   cardContainerSelector,
