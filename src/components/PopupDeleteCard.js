@@ -15,7 +15,6 @@ class PopupDeleteCard extends Popup {
   setDeleteCard(cardId, cardElement) {
     this._cardDeleteId = cardId;
     this._cardDeleteElement = cardElement;
-    console.log('setDeleteCard', cardElement);
   }
 
   setEventListeners() {

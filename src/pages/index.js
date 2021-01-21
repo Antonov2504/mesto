@@ -63,12 +63,6 @@ function cardLikeHandler(cardId, likeButton, likeCount) {
   if (!likeButton.classList.contains('button_type_add-like-active')) {
     likeButton.classList.add('button_type_add-like-active');
     api.addLike(cardId)
-      .then(res => {
-        if (res.ok) {
-          return res.json()
-        }
-        return Promise.reject(`Ошибка ${res.status}`);
-      })
       .then(data => {
         likeCount.classList.remove('card__like-count_hidden');
         likeCount.textContent = data.likes.length;
@@ -77,12 +71,6 @@ function cardLikeHandler(cardId, likeButton, likeCount) {
   } else {
     likeButton.classList.remove('button_type_add-like-active');
     api.deleteLike(cardId)
-      .then(res => {
-        if (res.ok) {
-          return res.json()
-        }
-        return Promise.reject(`Ошибка ${res.status}`);
-      })
       .then(data => {
         if (data.likes.length) {
           likeCount.classList.remove('card__like-count_hidden');
@@ -157,12 +145,6 @@ function popupAddCardFormHandler(inputValues) {
     name: inputValues['card-name'],
     link: inputValues['card-link'],
   })
-    .then(res => {
-      if (res.ok) {
-        return res.json()
-      }
-      return Promise.reject(`Ошибка ${res.status}`);
-    })
     .then(data => {
       card.setCardId(data._id);
     })
@@ -181,12 +163,6 @@ function popupDeleteCardHandler(cardId, cardElement) {
 function popupUpdateAvatarHandler() {
   renderLoading(true, popupWithFormUpdateAvatar);
   api.updateAvatar(popupElementUpdateAvatarLink.value)
-    .then(res => {
-      if (res.ok) {
-        return res.json()
-      }
-      return Promise.reject(`Ошибка ${res.status}`);
-    })
     .then(data => profileAvatar.src = data.avatar)
     .catch(err => console.log(err))
     .finally(renderLoading(true, popupWithFormUpdateAvatar));

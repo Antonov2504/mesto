@@ -38,41 +38,6 @@ const popupElementUpdateAvatar = document.querySelector('.popup_type_update-avat
 const popupElementUpdateAvatarForm = popupElementUpdateAvatar.querySelector('.form');
 const popupElementUpdateAvatarLink = popupElementUpdateAvatar.querySelector('.form__input_el_avatar-link');
 
-// Шаблон карточек
-const initialCards = [];
-//   const initialCards = [
-//   {
-//     name: 'Череповец',
-//     alt: 'Камерный театр в городе Череповце.',
-//     link: cherepovetsImage
-//   },
-//   {
-//     name: 'Сочи',
-//     alt: 'Ночной город Сочи с высоты птичьего полета. Сочи - жаркие ночи.',
-//     link: sochiImage
-//   },
-//   {
-//     name: 'Нижний Новгород',
-//     alt: 'Слияние Оки и Волги. Знаменитая стрелка в городе Нижнем Новгороде. Вид от стен Кремля.',
-//     link: nizhnyNovgorodImage
-//   },
-//   {
-//     name: 'Москва',
-//     alt: "'Москва-Сити' с высоты птичьего полета. Главный бизнес-центр в Москве.",
-//     link: moscowImage
-//   },
-//   {
-//     name: 'Санкт-Петербург',
-//     alt: 'Исаакиевский собор в лучах солнца, город Санкт-Петербург. Над золотым куполом пролетает стая птиц.',
-//     link: saintPetersburgImage
-//   },
-//   {
-//     name: 'Казань',
-//     alt: 'Кул-Шариф - главная соборная джума-мечеть республики Татарстан и города Казани.',
-//     link: kazanImage
-//   }
-// ];
-
 // Настройки селекторов и классов для валидации форм
 const formValidationEditProfileConfig = {
   formSelector: '.form',
@@ -119,7 +84,6 @@ export {
   popupElementUpdateAvatar,
   popupElementUpdateAvatarForm,
   popupElementUpdateAvatarLink,
-  initialCards,
   formValidationEditProfileConfig,
   formValidationAddCardConfig,
   formValidationUpdateAvatarConfig,

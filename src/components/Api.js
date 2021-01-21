@@ -47,7 +47,13 @@ class Api {
         name: cardInfo.name,
         link: cardInfo.link
       })
-    });
+    })
+      .then(res => {
+        if (res.ok) {
+          return res.json()
+        }
+        return Promise.reject(`Ошибка ${res.status}`);
+      });
   }
 
   deleteCard(cardId) {
@@ -61,14 +67,26 @@ class Api {
     return fetch(`${this.baseUrl}/cards/likes/${cardId}`, {
       method: 'PUT',
       headers: this.headers,
-    });
+    })
+      .then(res => {
+        if (res.ok) {
+          return res.json()
+        }
+        return Promise.reject(`Ошибка ${res.status}`);
+      });
   }
 
   deleteLike(cardId) {
     return fetch(`${this.baseUrl}/cards/likes/${cardId}`, {
       method: 'DELETE',
       headers: this.headers,
-    });
+    })
+      .then(res => {
+        if (res.ok) {
+          return res.json()
+        }
+        return Promise.reject(`Ошибка ${res.status}`);
+      });
   }
 
   updateAvatar(avatarLink) {
@@ -78,7 +96,13 @@ class Api {
       body: JSON.stringify({
         avatar: avatarLink
       })
-    });
+    })
+      .then(res => {
+        if (res.ok) {
+          return res.json()
+        }
+        return Promise.reject(`Ошибка ${res.status}`);
+      });
   }
 }
 

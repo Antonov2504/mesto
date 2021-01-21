@@ -54,14 +54,12 @@ export default class Card {
   // Метод _setEventListeners() задает слушателей событий
   _setEventListeners() {
     this._element.trash.addEventListener('click', () => {
-      console.log('click trash', this._element);
       this._handleDeleteCard(this._cardId, this._element);
     });
     this._element.image.addEventListener('click', () => {
       this._handleCardClick(this._element);
     });
     this._element.like.addEventListener('click', (evt) => {
-      console.log(this._cardId);
       this._handleLikeCard(this._cardId, evt.target, this._element.likeCount);
     });
   }
@@ -69,14 +67,4 @@ export default class Card {
   setCardId(cardId) {
     this._cardId = cardId;
   }
-
-  // Метод _removeHandler() удаляет карточку из DOM
-  // _removeHandler(evt) {
-  //   evt.target.closest('.card').remove();
-  // }
-
-  // Метод _likeHandler() управляет состоянием лайка
-  // _likeHandler(evt) {
-  //   evt.target.classList.toggle('button_type_add-like-active');
-  // }
 }
