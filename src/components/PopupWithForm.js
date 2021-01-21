@@ -4,6 +4,7 @@ class PopupWithForm extends Popup {
   constructor(popup, handleFormSubmit) {
     super(popup);
     this._formElement = this._element.querySelector('.form');
+    this._formSubmitButton = this._formElement.querySelector('.button_type_submit');
     this._handleFormSubmit = handleFormSubmit;
     this._submitHandler = this._handleFormElementSubmit.bind(this);
   }
@@ -31,6 +32,10 @@ class PopupWithForm extends Popup {
   removeEventListeners() {
     this._formElement.removeEventListener('submit', this._submitHandler);
     super.removeEventListeners();
+  }
+
+  setSubmitButtonText(text) {
+    this._formSubmitButton.textContent = text;
   }
 }
 

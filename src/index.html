@@ -15,11 +15,13 @@
     <main class="content">
       <section class="profile">
         <div class="profile__about">
-          <img src="<%=require('./images/profile__avatar.jpg')%>" alt="Жак-Ив Кусто" class="profile__avatar">
+          <div class="profile__avatar">
+            <img src="<%=require('./images/profile__avatar.svg')%>" alt="Имя пользователя" class="profile__avatar-img">
+          </div>
           <div class="profile__description">
-            <h1 class="profile__name">Жак-Ив Кусто</h1>
+            <h1 class="profile__name"></h1>
             <button type="button" class="button button_type_edit-profile"></button>
-            <p class="profile__job">Исследователь океана</p>
+            <p class="profile__job"></p>
           </div>
         </div>
         <button type="button" class="button button_type_add-card"></button>
@@ -107,6 +109,34 @@
         </figure>
       </div>
     </div>
+    <!-- Попап удаления карточки -->
+    <div class="popup popup_type_delete-card">
+      <div class="popup__container popup__container_size_content">
+        <button type="button" class="button button_type_close-popup"></button>
+        <h2 class="popup__heading">Вы уверены?</h2>
+        <button type="button" class="button button_type_submit">Да</button>
+      </div>
+    </div>
+  </div>
+  <!-- Попап обновить аватар -->
+  <div class="popup popup_type_update-avatar">
+    <div class="popup__container popup__container_size_content">
+      <button type="button" class="button button_type_close-popup"></button>
+      <form action="#" name="update-avatar" class="form" novalidate>
+        <h2 class="popup__heading">Обновить аватар</h2>
+        <label class="form__field">
+          <input type="url"
+                 name="avatar-link"
+                 id="avatar-link-input"
+                 class="form__input form__input_size_small form__input_el_avatar-link"
+                 placeholder="Ссылка на аватар"
+                 required
+                 autocomplete="off">
+          <span class="form__input-error avatar-link-input-error"></span>
+        </label>
+        <button type="submit" class="button button_type_submit">Сохранить</button>
+      </form>
+    </div>
   </div>
   <!-- Шаблон карточки -->
   <template id="card-template">
@@ -115,7 +145,10 @@
       <img src="https://www.russiadiscovery.ru/upload/files/files/Samie-krasivie-mesta-Rossii.jpg" alt="#" class="card__image">
       <div class="card__info">
         <h2 class="card__name"></h2>
-        <button type="button" class="button button_type_add-like"></button>
+        <div class="card__like">
+          <button type="button" class="button button_type_add-like"></button>
+          <span class="card__like-count"></span>
+        </div>
       </div>
     </li>
   </template>
