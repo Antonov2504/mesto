@@ -1,3 +1,5 @@
+import handleOriginalResponse from './../utils/utils.js';
+
 class Api {
   constructor(options) {
     this.baseUrl = options.baseUrl;
@@ -8,24 +10,14 @@ class Api {
     return fetch(`${this.baseUrl}/users/me`, {
       headers: this.headers
     })
-      .then(res => {
-        if (res.ok) {
-          return res.json();
-        }
-        return Promise.reject('Ошибка');
-      })
+      .then(handleOriginalResponse);
   }
 
   getInitialCards() {
     return fetch(`${this.baseUrl}/cards/`, {
       headers: this.headers
     })
-      .then(res => {
-        if (res.ok) {
-          return res.json();
-        }
-        return Promise.reject('Ошибка');
-      })
+      .then(handleOriginalResponse);
   }
 
   editProfile(userInfo) {
@@ -36,7 +28,8 @@ class Api {
         name: userInfo.name,
         about: userInfo.job
       })
-    });
+    })
+      .then(handleOriginalResponse);
   }
 
   addCard(cardInfo) {
@@ -48,12 +41,7 @@ class Api {
         link: cardInfo.link
       })
     })
-      .then(res => {
-        if (res.ok) {
-          return res.json()
-        }
-        return Promise.reject(`Ошибка ${res.status}`);
-      });
+      .then(handleOriginalResponse);
   }
 
   deleteCard(cardId) {
@@ -68,12 +56,7 @@ class Api {
       method: 'PUT',
       headers: this.headers,
     })
-      .then(res => {
-        if (res.ok) {
-          return res.json()
-        }
-        return Promise.reject(`Ошибка ${res.status}`);
-      });
+      .then(handleOriginalResponse);
   }
 
   deleteLike(cardId) {
@@ -81,12 +64,7 @@ class Api {
       method: 'DELETE',
       headers: this.headers,
     })
-      .then(res => {
-        if (res.ok) {
-          return res.json()
-        }
-        return Promise.reject(`Ошибка ${res.status}`);
-      });
+      .then(handleOriginalResponse);
   }
 
   updateAvatar(avatarLink) {
@@ -97,12 +75,7 @@ class Api {
         avatar: avatarLink
       })
     })
-      .then(res => {
-        if (res.ok) {
-          return res.json()
-        }
-        return Promise.reject(`Ошибка ${res.status}`);
-      });
+      .then(handleOriginalResponse);
   }
 }
 

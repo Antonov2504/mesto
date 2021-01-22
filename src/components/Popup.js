@@ -11,19 +11,18 @@ class Popup {
 
   close() {
     this._element.classList.remove('popup_opened');
+    this.removeEventListeners();
   }
 
   _handleEscClose(evt) {
     if (evt.key === "Escape") {
       this.close(this._element);
-      this.removeEventListeners();
     };
   }
 
   _popupClickHandler(evt) {
     evt.stopPropagation();
     if (evt.target.classList.contains('popup') || evt.target.classList.contains('button_type_close-popup')) {
-      this.removeEventListeners();
       this.close(this._element);
     };
   }

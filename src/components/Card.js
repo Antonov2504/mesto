@@ -31,6 +31,7 @@ export default class Card {
     this._element.image = this._element.querySelector('.card__image');
     this._element.name = this._element.querySelector('.card__name');
     this._element.trash = this._element.querySelector('.button_type_remove-card');
+    console.log(this._ownerId, userId, this._ownerId !== userId);
     if (this._ownerId !== userId) this._element.trash.remove();
     this._element.like = this._element.querySelector('.button_type_add-like');
     if (this._likes.some(profile => profile._id === userId)) {
@@ -64,7 +65,10 @@ export default class Card {
     });
   }
 
-  setCardId(cardId) {
+  setCardIds(ownerId, cardId) {
     this._cardId = cardId;
+    this._ownerId = ownerId;
+    console.log(this._data);
+    console.log('ownerId ', this._ownerId);
   }
 }
