@@ -29,9 +29,9 @@ class PopupWithForm extends Popup {
     super.setEventListeners();
   }
 
-  removeEventListeners() {
+  _removeEventListeners() {
     this._formElement.removeEventListener('submit', this._submitHandler);
-    super.removeEventListeners();
+    super._removeEventListeners();
   }
 
   setSubmitButtonText(text) {
