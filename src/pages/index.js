@@ -120,8 +120,6 @@ function editProfileHandler() {
 
 // Обработка формы изменения профиля по submit
 function popupEditProfileFormHandler(inputValues) {
-  popupWithFormEditProfile.removeEventListeners();
-  popupWithFormEditProfile.close();
   renderLoading(true, popupWithFormEditProfile);
   api.editProfile({
     name: inputValues['profile-name'],
@@ -130,7 +128,10 @@ function popupEditProfileFormHandler(inputValues) {
     .then(data => {
       user.setUserInfo(data);
     })
-    .finally(renderLoading(false, popupWithFormEditProfile));
+    .finally(() => {
+      renderLoading(false, popupWithFormEditProfile);
+      popupWithFormEditProfile.close();
+    });
 }
 
 // Создание экземпляра класса Card по submit
@@ -145,7 +146,6 @@ function popupAddCardFormHandler(inputValues) {
       likes: [],
     },
   }, cardTemplateSelector);
-  popupWithFormAddCard.removeEventListeners();
   renderLoading(true, popupWithFormAddCard);
   api.addCard({
     name: inputValues['card-name'],
@@ -176,7 +176,6 @@ function popupDeleteCardHandler(cardId, cardElement) {
 
 // Обновление аватара по submit
 function popupUpdateAvatarHandler() {
-  popupWithFormUpdateAvatar.removeEventListeners();
   renderLoading(true, popupWithFormUpdateAvatar);
   api.updateAvatar(popupElementUpdateAvatarLink.value)
     .then(data => profileAvatar.src = data.avatar)

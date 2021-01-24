@@ -22,9 +22,9 @@ class PopupDeleteCard extends Popup {
     super.setEventListeners();
   }
 
-  removeEventListeners() {
+  _removeEventListeners() {
     this._buttonDelete.removeEventListener('click', this._deleteHandler);
-    super.removeEventListeners();
+    super._removeEventListeners();
   }
 }
 
