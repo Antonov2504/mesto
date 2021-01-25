@@ -74,17 +74,17 @@ function createCard({ data }, cardSelector) {
 // Обработка лайка
 function cardLikeHandler(cardId, likeButton, likeCount) {
   if (!likeButton.classList.contains('button_type_add-like-active')) {
-    likeButton.classList.add('button_type_add-like-active');
     api.addLike(cardId)
       .then(data => {
+        likeButton.classList.add('button_type_add-like-active');
         likeCount.classList.remove('card__like-count_hidden');
         likeCount.textContent = data.likes.length;
       })
       .catch(err => console.log(err));
   } else {
-    likeButton.classList.remove('button_type_add-like-active');
     api.deleteLike(cardId)
       .then(data => {
+        likeButton.classList.remove('button_type_add-like-active');
         if (data.likes.length) {
           likeCount.classList.remove('card__like-count_hidden');
           likeCount.textContent = data.likes.length
@@ -136,22 +136,22 @@ function popupEditProfileFormHandler(inputValues) {
 
 // Создание экземпляра класса Card по submit
 function popupAddCardFormHandler(inputValues) {
-  const card = createCard({
-    data: {
-      owner: {
-        _id: user.userId
-      },
-      name: inputValues['card-name'],
-      link: inputValues['card-link'],
-      likes: [],
-    },
-  }, cardTemplateSelector);
   renderLoading(true, popupWithFormAddCard);
   api.addCard({
     name: inputValues['card-name'],
     link: inputValues['card-link'],
   })
     .then(data => {
+      const card = createCard({
+        data: {
+          owner: {
+            _id: user.userId
+          },
+          name: inputValues['card-name'],
+          link: inputValues['card-link'],
+          likes: [],
+        },
+      }, cardTemplateSelector);
       card.setCardIds(data.owner._id, data._id);
       cardContainer.addItem(card.createCard(user.userId), true);
     })
