@@ -64,7 +64,7 @@ export default class FormValidator {
     }
   }
 
-  // Метод setButtonStateEnable() заделает состояние кнопки submit 'активна'
+  // Метод setButtonStateEnable() задает состояние кнопки submit 'активна'
   setButtonStateEnable() {
     this._toggleButtonState(false);
   }
